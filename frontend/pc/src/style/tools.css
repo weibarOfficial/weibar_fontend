@@ -1,0 +1,14 @@
+﻿@charset "utf-8";
+.WM_QR{background:rgba(0,0,0,0.6); border:solid 1px #ff4b69; border-radius:10px; position:absolute; text-align:center; z-index:9;cursor:move}
+.WM_QR.hidden{visibility:hidden; opacity:0;}
+.WM_QR.onHide{border:0; overflow:hidden}
+.WM_QR_mini{display:none; width:50px; height:50px; padding:5px; box-sizing:border-box; cursor:pointer; background:rgba(255,255,255,0.8)}
+.WM_QR_mini img{width:100%; height:100%}
+.WM_QR_mini span{width:40px; height:40px; background:url(../images/WM_QR_mini.png); background-size:cover; display:inline-block;}
+/*._WM_QR{width:260px; height:280px; background:#fff; border-radius:4px;}*/
+/*.WM_QR_main{width:100%; height:100%; position:absolute; left:0; top:0; cursor:move;padding:20px 10px; box-sizing:border-box;}*/
+.WM_QR_box{width:100%;padding:20px 15px 2px;}
+.WM_QR_box img{width:100%;height: 100%}
+.WM_QR_foot{width:100%; height:30px; line-height:30px; padding:0 0 5px 0; font-size:22px !important;font-weight: bolder; letter-spacing:1px; color:#ff4b69; overflow:hidden; text-overflow:ellipsis;-webkit-text-overflow:ellipsis; white-space:nowrap;}
+.WM_QR_hide{position:absolute; right:10px; top:-2px; width:30px; height:20px; display:inline-block; text-align:center; z-index:1}
+.WM_QR_hide span{width:18px; height:3px; background:#ff4b69; display:inline-block; cursor:pointer; margin-top:10px}

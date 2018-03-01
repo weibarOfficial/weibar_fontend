@@ -1,0 +1,111 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>聊天</title>
+    <meta content="user-scalable=0,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+
+    <script  type="text/javascript" src="./js/commons/jquery-1.10.2.min.js"></script>
+    <script  type="text/javascript" src="./js/commons/template-web.js"></script>
+    <script  type="text/javascript" src="./js/commons/wmPhone.js?r=42" ></script>
+    <script  type="text/javascript" src="./js/commons/sockjs.min.js"></script>
+    <script  type="text/javascript" src="./js/commons/stomp.min.js?r=42" ></script>
+
+    <script  src="./js/commons/swiper.js"></script>
+    <script src="./js/commons/exif.js"></script>
+
+</head>
+
+<body>
+
+<div class="loadMore animate">
+    <span class="loadingImg"><span></span></span><tt>微喵为您加载</tt>
+</div>
+<div class="all" >
+    <div id="j_followMsg"></div>
+    <div id="j_msgCnt"></div>
+</div>
+
+<!--底部-->
+<div class="newFoot">
+    <div class="newFoot-txt" id="j_msgFormCnt">
+        <a class="onWallPhoneIconColor onWallPhoneIcon_image">
+            <input id="upload" accept="image/*" class="file" type="file" />
+        </a>
+        <a class="onWallPhoneIconColor onWallPhoneIcon_emoji j_popFacePanel"></a>
+        <a class="newTalk_gift j_showGiftPanel"></a>
+        <div class="newFoot-inputBox">
+            <input type="text" id="txt" placeholder="发送内容"  maxlength="200"/>
+        </div>
+        <a id="submit">发送</a>
+    </div>
+    <div class="allFace hide" id="allFace"></div>
+</div>
+<!--显示用户-->
+<div class="userBox j_userBox">
+    <div class="userBoxAllBg"></div>
+    <div class="userInfo overlay">
+        <div class="userTip"><span><tt id="userTipIndex"></tt>点击屏幕返回</span></div>
+        <p class="p1"></p>
+        <p class="p2"></p>
+        <p class="p3"></p>
+    </div>
+    <a class="FuckYou_close" style="z-index:9"></a>
+</div>
+<script type="text/html" id="msgTpl">
+<div class="row j_row {{_ownerCls}}" mid="{{id}}">
+    <a class="j_popProfile" 
+        data-src="{{fromUserPic}}"  data-name="{{fromUserNickName}}"
+	    data-userpic="{{fromUserPic}}" data-sex="{{fromSex}}"
+	    data-uid="{{fromUserId}}"}>
+        <img class="face {{_sexCls}}" src="{{fromUserPic}}">
+    </a>
+    <span class="content">
+        <tt class="name"><i class="time">{{_timeStr}}</i></tt>
+        <tt class="txt">
+            <span class="imArr"></span>
+            <span class="txtSpan">
+                {{if _isGift}}
+                <img src="{{giveInfo.giftImgUrl}}" />
+                <p style="color:#f4a4be; text-align:center">送礼：{{giveInfo.giftName}}</p>
+                <tt class="dsLine"></tt>
+                {{giveInfo.content}}
+                {{else}}
+                    {{@message}}
+                    {{if imgUrl}}
+                        <img class="bg {{message ? 'hasMargin': ''}} j_showImage" src="{{imgUrl}}" />
+                    {{/if}}
+                {{/if}}
+            </span>
+            {{if !_isSelf && !_followMsg}}
+            <!--<tt class="action">
+                <span class="aBlack">拉黑</span>
+            </tt>
+            <tt class="action" style="right:-90px;">
+                <span class="aBlack">举报</span>
+            </tt>-->
+            {{/if}}
+        </tt>
+    </span>
+</div>
+</script>
+<script type="text/html" id="followPopTpl">
+<div class="followPopBox">
+    <span style="display:table-cell; vertical-align:middle">
+        <div class="popTip">
+            为了确保交友消息能通知到你<br />请先关注公众号
+        </div>
+        <div class="j_loadingTip" style="width:160px; margin:0 auto">图片加载中...</div>
+        <img class="j_qrCode" style="width:140px;visibility:hidden;" />
+        <div style="color:#fff; font-size:12px; margin-top:10px">长按二维码关注</div>
+        <div style="width:100%; position:absolute; left:0; bottom:15%; text-align:center">
+            <a class="closeBtn j_closePop">关闭</a>
+        </div>
+    </span>
+</div>
+</script>
+</body>
+</html>

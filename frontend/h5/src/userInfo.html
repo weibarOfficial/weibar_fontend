@@ -1,0 +1,464 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>个人资料</title>
+    <meta content="user-scalable=0,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    
+
+<link rel="stylesheet" type="text/css" href="./style/basic.css?r=1509866975209"/>
+<link rel="stylesheet" type="text/css" href="./style/wmPhone.css?r=38"/>
+<script  type="text/javascript" src="./js/jquery-1.10.2.min.js"></script>
+<script  type="text/javascript" src="./js/wmPhone.js?r=42" charset="UTF-8"></script>
+<!-- <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?10e51bbc1cd808d4b8881766633c4ccf";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script> -->
+
+    <script  src="./js/exif.js"></script>
+    <style>
+        *{padding:0;margin:0;font-family:'Microsoft YaHei'}
+        html,body{
+            background:#fff;
+            overflow-x:hidden;
+            box-sizing:border-box;
+        }
+        .box{
+            overflow-x:hidden;
+            box-sizing:border-box;
+        }
+        .copyRight{
+            text-align:center;
+            width:100%;
+        }
+        .copyAbs{
+            position:absolute;
+            bottom:20px;left:0;
+        }
+        .copyNor{
+            padding:20px 0;
+        }
+        .copy{
+            color:#b5b5b5;
+            font-size:12px;
+        }
+        .userTitle{
+            padding:14px 15px;
+        }
+        .userTitle span{
+            display:inline-block;
+            vertical-align:middle;
+        }
+        .userIcons i{
+            display:block;
+            height:2px;
+            border-radius:2px;
+            background:#2d2d2d;
+            width:15px;
+        }
+        .userIcons i:nth-of-type(2){
+            width:12px;
+            margin:4px 0;
+        }
+        .userText{
+            font-size:16px;
+            margin-left:20px;
+        }
+        .userExplain{
+            padding:10px 15px;
+            background:#fafafa;
+            font-size:13px;
+            color:#8c8c8c;
+        }
+        .row{
+            padding:2px 15px;
+            border-bottom:1px solid #ededed;
+            position:relative;
+            min-height:50px;
+        }
+        .upload{
+            width:45px;
+            height:45px;
+            position:absolute;
+            top:50%;right:0;
+            transform:translateY(-50%);
+        }
+        .uploadIcons{
+            width:45px;
+            height:45px;
+            background:url('http://img.wemew.com/wemew/wechat/images/photoIcon.png') no-repeat center center/30px 22px;
+        }
+        .uploadHead{
+            width:45px;
+            height:45px;
+            position:absolute;
+            top:0;left:0;
+            overflow:hidden;
+            z-index:2;
+        }
+        .uploadFile{
+            display:block;
+            width:100%;
+            height:100%;
+            position:absolute;
+            top:0;left:0;
+            z-index:10;
+            font-size:0;
+            opacity:0;
+        }
+        .rowDiv{
+            font-size:14px;
+        }
+        .rowLeft{
+            width:65px;
+            text-align:left;
+            position:absolute;
+            top:50%;left:15px;
+            transform:translateY(-50%);
+            color:#8c8c8c;
+        }
+        .rowRight{
+            margin-left:70px;
+            text-align:right;
+            position:relative;
+            height:50px;
+        }
+        .userHead{
+            width:50px;
+            height:50px;
+        }
+        .userName{
+            width:100%;
+            height:100%;
+            text-align:right;
+            font-size:14px;
+        }
+        .rowText{
+            line-height:50px;
+        }
+        .userSelect{
+            display:block;
+            width:100%;
+            height:100%;
+            position:absolute;
+            top:0;right:0;
+            /*background:#f00;*/
+            z-index:2;
+            opacity:0;
+        }
+        .rowBtn{
+            padding:25px 15px 0 15px;
+        }
+        .rowBtn a{
+            display: block;
+            height: 42px;
+            line-height: 42px;
+            text-align: center;
+            border: 1px solid #ff4baa;
+            color: #ff4b69;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="userTitle" id="showNav">
+        <span class="userIcons"><i></i><i></i><i></i></span>
+        <span class="userText">个人资料</span>
+    </div>
+    <div class="userExplain">完善个人资料，更具交友魅力</div>
+    <div class="row">
+        <div class="rowLeft rowDiv">头像</div>
+        <div class="rowRight rowDiv">
+            <div class="upload">
+                <div class="uploadIcons"></div>
+                <div class="uploadHead"><img class="userHead" onload="WM.Phone.centerImage(this);" src="http://www.wemew.com/wemew/images/noHeadImg_100_100.gif" /></div>
+                <input class="uploadFile" type="file" accept="image/*" onchange="upload.start(this)">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="rowLeft rowDiv">昵称</div>
+        <div class="rowRight rowDiv">
+            <input type="text" class="userName" placeholder="请输入昵称" value="不测试">
+        </div>
+    </div>
+    <div class="row">
+        <div class="rowLeft rowDiv">身高</div>
+        <div class="rowRight rowDiv">
+            <span class="rowText"><span id="height">155</span>&nbsp;cm</span>
+            <select id="userHeight" class="userSelect"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="rowLeft rowDiv">体重</div>
+        <div class="rowRight rowDiv">
+            <span class="rowText"><span id="width">45</span>kg</span>
+            <select id="userWeight" class="userSelect"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="rowLeft rowDiv">年龄</div>
+        <div class="rowRight rowDiv">
+            <span class="rowText"><span id="age">16</span></span>
+            <select id="userAge" class="userSelect"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="rowLeft rowDiv">职业</div>
+        <div class="rowRight rowDiv">
+            <span class="rowText"><span id="job">IT</span></span>
+            <select id="userJob" class="userSelect"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="rowLeft rowDiv">交友心声</div>
+        <div class="rowRight rowDiv">
+            <input type="text" class="userName" id="makeVoice" placeholder="请输入交友心声" value="">
+        </div>
+    </div>
+    <div class="rowBtn">
+        <a id="save">保存</a>
+    </div>
+</div>
+<script>
+    var copyRight = {
+        create:function(){
+            var boxH = $('.box').outerHeight(true);
+            var winH = $(window).height();
+            var bool = winH-boxH>56;
+            var html = '';
+            html += bool?'<div class="copyRight copyAbs">':'<div class="copyRight copyNor">';
+            html += '<div class="copy">©wemew 微喵<span class="copyWemewIcon"></span></div>';
+            html += '</div></div>';
+            $(html).appendTo($('body'));
+        },
+        redraw:function(){
+            $('.copyRight').remove();
+            copyRight.create();
+        }
+    };
+    /*
+        身高 155 - 180   体重 45-90  年龄 16-50  职业['IT','工','商','金','教','文','艺','医','法','教','政','学','无'];
+    */
+    var setUserMsg = {
+        create:function(el,start,end,selected){
+            for(var i=start;i<=end;i++){
+                $('<option value="'+i+'">'+i+'</option>').appendTo($(el));
+                if(i==selected)
+                    $(el).find('option[value='+i+']').prop('selected',true);
+            }
+        },
+        userJob:function(){
+            var job = ['IT','工','商','金','教','文','艺','医','法','教','政','学','无'];
+            var el = $('#userJob');
+            for(var i=0;i<job.length;i++){
+                $('<option value="'+job[i]+'">'+job[i]+'</option>').appendTo($(el));
+                if(job[i]==$('#job').text())
+                    $(el).find('option[value='+job[i]+']').prop('selected',true);
+            }
+        },
+        change:function(){
+            $('.userSelect').on('change',function(){
+                var val = $(this).val();
+                $(this).parents('.rowRight').find('.rowText').find('span').html(val);
+            })
+        },
+        submit:function(){
+            $('#save').click(function(){
+                var _this = this;
+                var head = $('.userHead');
+                if($(head).length==0||typeof $(head).attr('src')=='undefined')
+                    return showInfo('请上传您的头像',false);
+                if($('.lnUpload .Phone_loading_box2').length>0)
+                    return showInfo('请稍等，正在上传照片',false);
+                var dt = {
+                    src:$(head).attr('src'),
+                    name:$.trim($('.userName').val()),
+                    height:$.trim($('#userHeight').val()),
+                    weight:$.trim($('#userWeight').val()),
+                    age:$.trim($('#userAge').val()),
+                    job:$.trim($('#userJob').val()),
+                    makeVoice:$.trim($('#makeVoice').val())
+                };
+                dt.name = dt.name.replace(/</g,'&lt;');
+                dt.name = dt.name.replace(/>/g,'&gt;');
+                dt.makeVoice = dt.makeVoice.replace(/</g,'&lt;');
+                dt.makeVoice = dt.makeVoice.replace(/>/g,'&gt;');
+                if(dt.name.length==0)
+                    return showInfo('请输入昵称',false);
+                if(dt.name.length>16)
+                    return showInfo('昵称字数在16字符以内',false);
+                if(dt.makeVoice.length>200)
+                    return showInfo('交友心声在200字符以内',false);
+                WM.Phone.setButton(this,false);
+                ajax_submit(dt,function(url){
+                    showInfo('操作成功',true);
+                    window.location.href = url;
+                },function(msg){
+                    showInfo(msg||'保存失败');
+                    WM.Phone.setButton(_this,true);
+                });
+            })
+        },
+        init:function(){
+            this.create($('#userHeight'),155,200,$('#height').text());
+            this.create($('#userWeight'),45,100,$('#width').text());
+            this.create($('#userAge'),16,65,$('#age').text());
+            this.userJob();
+            this.change();
+            this.submit();
+        }
+    };
+    // 上传图片;
+    var upload = {
+        start:function(e){
+            $('.uploadFile').hide();
+            $('.uploadIcons').hide();
+            $('.uploadHead').html($(WM.Phone.loading.getHtml2()));
+            WM.Phone.Html5FileUpload.singleUpload(e.files[0],0,{
+                rotate:true,//是否自动纠正iphone图片方向错误
+                minWidth:200,//最小宽度
+                minHeight:200,//最小高度
+                cutWidth:800,//裁剪尺寸
+                cutHeight:1200,
+                error:function(ex){
+                    upload.error(ex.errorMsg);
+                },
+                singleStart:function(dt){
+                    //单张图片准备完毕 可以开始上传ajax
+                    ajax_upload(dt,function(src){
+                        $('.uploadHead .Phone_loading_box2').remove();
+                        $('.uploadFile').show();
+                        if($('.userHead').length>0)
+                             $('.userHead').attr({src:src});
+                        else
+                            $('<img class="userHead" onload="WM.Phone.centerImage(this);" src="'+src+'" />').appendTo($('.uploadHead'));
+                    	$('.uploadIcons').show();
+                    },function(errorMsg){
+                        upload.error(errorMsg);
+                    });
+                },
+                allStart:function(base64List){
+                    //多图上传 所有图片准备完毕
+                }
+            });
+        },
+        error:function(errorMsg){
+            showInfo(errorMsg||'上传失败',false);
+            $('.uploadHead .Phone_loading_box2').remove();
+            $('.uploadFile').show();
+        }
+    };
+
+    var ajax_upload = function(base64,fn1,fn2){
+        base64 = base64.split('base64,');
+		if(base64.length<1)
+			return fn2('上传失败');
+		base64 = base64[1];
+		$.post("/upload/base64Img2OSS",{strImg:base64,angel:0},function(result) {
+			if(result.isResultTrue){
+				result = $.parseJSON(result.resultMsg);
+				fn1(result.sImgUrl);
+			}else{
+				fn2(result.resultMsg);
+			}
+		});
+    };
+
+    var ajax_submit = function(dt,fn1,fn2){
+        /*
+        dt = {
+            age:'年龄',
+            height:'身高',
+            job:'职业',
+            makeVoice:'交友心声',
+            name:'昵称',
+            src:'头像路径',
+            weight:'体重'
+        }
+         */
+        var txt = dt.makeVoice;
+        txt = txt.replace(/ /g, "");
+		txt = txt.replace(/"/g, "&quot;");
+		txt = txt.replace(/'/g, "&apos;");
+		txt = txt.replace(/</g,'&lt;');
+		txt = txt.replace(/>/g,'&gt;');
+		$.post("/cwechat/saveUserInfo",{cm:dt.height,kg:dt.weight,age:dt.age,job:dt.job,txt:txt,imgUrl:dt.src,userName:dt.name},function(data){
+			if(data.isResultTrue){
+				fn1('/cwechat/barenterinter?barid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045');
+			}else{
+				fn2();
+			}
+		})
+    }
+
+    var activeUrl = {
+        title:'GAGABAR',
+        onWallUrl:'/cwechat/barenterinter?tcbid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045', // 微上墙地址;
+        isGaming:"",
+        gameUrl:{
+			'赛马':{
+				icon:'icon_module9',
+				url:'/cwechat/horsegame?tcbid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+			},
+			'赛车':{
+				icon:'icon_module20',
+				url:'/cwechat/cargame?tcbid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+			},
+			'石头剪刀布':{
+				icon:'icon_module21',
+				url:'/cwechat/userFingerGame?tcbid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+			},
+			'现场夺宝':{
+				icon:'icon_module23',
+				url:'/cwechat/getTreasure?tcbid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+			},
+			'投票':{
+				icon:'icon_module24',
+				url:'/cwechat/userVoteItemList?tcbid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+			},
+			'摇一摇':{
+				icon:'icon_module27',
+				url:'/cwechat/shakPort?tcbid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+			},
+			'数钱':{
+				icon:'icon_module29',
+				url:'/cwechat/moneyGameView?barid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+			},
+			'12生肖':{
+				icon:'icon_module30',
+				url:'/cwechat/enterAnimals?barid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+			},
+            '拔河游戏':{
+                icon:'icon_module31',
+                url:'/cwechat/tugofwarGame?barid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+            }
+		},
+		otherUrl:{}
+    };
+
+    $(function(){
+        setUserMsg.init();
+        copyRight.create();
+        WM.Phone.get({
+            type:'nav',
+            click:'showNav',
+            title:activeUrl.title,
+            onWallUrl:activeUrl.onWallUrl,
+            gaming:activeUrl.isGaming,
+            game:activeUrl.gameUrl,
+            other:activeUrl.otherUrl
+        });
+    })
+</script>
+</body>
+</html>

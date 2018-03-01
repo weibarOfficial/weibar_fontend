@@ -1,0 +1,108 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>红包详情</title>
+<meta content="user-scalable=0,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+
+
+<link rel="stylesheet" type="text/css" href="./style/basic.css?r=1513599206442"/>
+<link rel="stylesheet" type="text/css" href="./style/wmPhone.css?r=38"/>
+<script  type="text/javascript" src="./js/commons/jquery-1.10.2.min.js"></script>
+<script src="./js/commons/template-web.js"></script>
+<script  type="text/javascript" src="./js/commons/wmPhone.js?r=42" charset="UTF-8"></script>
+<!--<script  type="text/javascript" src="./js/redbag.js?r=42" charset="UTF-8"></script>-->
+
+<style>
+*{-webkit-tap-highlight-color:rgba(255,255,255,0);}
+body{background:#f6f6f6}
+.wm_main{padding-bottom:30px;}
+.detailTop{width:100%; position:relative}
+.detailFixed{position:fixed; left:0; top:0; background:#f26b6b; z-index:99; width:100%; padding:13px 10px 12px 10px;}
+.detailFixed span{color:#fff; font-size:14px; display:inline-block; height:20px; line-height:20px; padding-left:30px; position:relative}
+.detailFixed span a{padding:6px 10px; display:inline-block; position:absolute; left:0; top:-4px;}
+.onWall_redBagBack{position:relative; top:-1px}
+.onWall_redBagDetailHead{width:100%; padding-bottom:40px;}
+.detailHead{position:absolute; width:80px; height:80px; border:solid 2px #fff; left:50%; margin-left:-40px; bottom:0px; border-radius:50%}
+
+.detailUser{text-align:center; margin-top:20px; padding:0 15px; box-sizing:border-box;}
+.detailUser div:nth-child(1){font-size:16px; margin-top:20px}
+.detailUser div:nth-child(2){font-size:14px; color:#999; margin-top:8px}
+.detailUser div:nth-child(3){font-size:25px; color:#1ab700; margin-top:20px}
+.detailUser div:nth-child(3) span{color:#1ab700; font-size:14px; margin-left:5px; display:inline-block; position:relative; top:-1px}
+.detailUser div:nth-child(4){font-size:13px; color:#999; margin-top:0px}
+
+.detailTitle{font-size:12px; color:#999; padding:10px 15px; box-sizing:border-box; margin-top:30px;}
+
+.detailList div{position:relative; padding:15px 15px; box-sizing:border-box; border-bottom:solid 1px #eee;}
+.detailList div img{width:50px; height:50px; border-radius:50%; position:absolute; left:15px; top:15px}
+.detailList div p{height:48px; margin:0 80px 0 55px; margin-top:2px; overflow:hidden}
+.detailList div p span{display:block; height:24px; line-height:24px; font-size:14px; width:100%;}
+.detailList div p span:nth-child(2){font-size:12px; color:#999}
+.detailList div tt{position:absolute; right:15px; top:17px; font-size:14px; height:24px; line-height:24px;}
+.detailList div i{position:absolute; right:15px; top:40px; font-style:normal; color:#f26b6b; font-size:12px; height:24px; line-height:24px;}
+.onWall_redBagBestLuck{position:relative; top:1px; margin-right:3px;}
+.detailList div:nth-child(1){margin-top:-1px}
+.detailText{
+    padding:10px 15px 10px 27px;
+    background:#ededed;
+    color:#999;
+    font-size:12px;
+}
+    .detailRed{
+        padding:0px 10px 0px 0px;
+        display: none;
+        color:#ff4b69;
+        /*position: absolute;*/
+    }
+</style>
+<script>
+
+</script>
+</head>
+
+<body>
+<div class="wm_main">
+	<div class="detailFixed">
+    	<span><a href="javascript:history.go(-1)"><i class="onWall_redBagBack"></i></a>红包详情</span>
+    </div>
+</div>
+<div class="copyNormal">&copy; 秉烛科技<span class="copyWemewIcon"></span></div>
+</body>
+<script type="text/html" id="pageTpl">
+
+<div class="detailTop">
+    <img class="onWall_redBagDetailHead" src="./images/onWall_redBagDetailHead.png"/>
+    <img class="detailHead" src="{{userPicture}}" />  
+</div>
+<div class="detailUser">
+    <div>{{nickname}}</div>
+    <div>{{redpackettitle}}</div>
+    <div></div>
+    <div><a class="textRed" href="./withdraw.html">我的钱包</a></div>           
+</div>
+<div class="detailTitle">{{sendNumber}}个红包共{{amount}}元&emsp;</div>
+<!--<div class="detailText look" style="position: relative">
+    <img src="./images/ic_notice.png" width="15px" style="position: absolute;left: 10px;top: 11px;" alt="">红包规则
+    <div class="detailText detailRed">该红包金额商家将自动提取10%</div>
+</div>-->
+<div class="detailList">
+    {{each userRedPackageList item}}
+    <div>
+        <img class="detailOne" src="{{item.userPicture}}" />
+        <p>
+            <span class="ellipsis">{{item.nickname}}</span>
+            <span>{{item.getTime | dateFormat 'MM-DD hh:mm:ss'}}</span>
+        </p>
+        <tt>{{item.amount}}元</tt>
+        {{if item.best}}
+        <i><b class="onWall_redBagBestLuck"></b>手气最佳</i>
+        {{/if}}
+    </div>
+    {{/each}}
+</div>    
+</script>
+</html>

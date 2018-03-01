@@ -1,0 +1,143 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--android宽度自适应1:1-->
+<meta content="user-scalable=0,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta http-equiv="pragma" content="no-cache"/>
+<meta http-equiv="cache-control" content="no-cache"/>
+<meta http-equiv="expires" content="0"/>
+<title>微信支付</title>
+<!--<script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>-->
+<script  type="text/javascript" src="./js/commons/jquery-1.10.2.min.js"></script>
+ <style type="text/css">
+   *{margin:0; padding:0;}
+body,.all{position:absolute; left:0; top:0; text-align:center; width:100%; height:100%; display:table; color:#fff; font-weight:bold}
+.all{background-color: rgba(0,0,0,.8);}
+span{display:table-cell; vertical-align:middle}
+a{border-radius:3px; display:block; color:#fff; font-size:14px; margin:auto; background:#093; width:70%; height:40px; line-height:40px; text-align:center; font-weight:bold;text-decoration: none;}
+</style>
+
+</head>
+  <body>
+  	<div id="all" class="all">
+		<span>
+		<img width="40" src="./images/009.gif" />
+		<br />
+		支付中，请稍后...
+		</span>
+	</div>
+    <a style="margin-top:40%; margin-bottom:40px" onclick="callWxPay();">点击支付</a>
+	<a class="j_return">取消支付，返回微上墙</a>
+  </body>
+  <script>
+	var getUrlParams = (function(){
+		var params = {};
+		var str = location.search;
+		if (str){
+			str = str.substr(1);
+		}
+		var idx = 0,
+			arr = str.split('&');
+		for(var i = 0; i < arr.length; i++){
+			idx = arr[i].indexOf("=");
+			params[arr[i].substring(0,idx)] = decodeURIComponent(arr[i].substring(idx + 1));
+		}
+		return function(name){
+			return name ? params[name] :  params;
+		};
+	})();
+	var params = getUrlParams();
+	var errorFn = function(res){
+		alert(res && res.message || '微信支付失败');
+	};
+	var orderData = null;
+	function callWxPay(data){
+		data = data || orderData;
+		// alert(JSON.stringify(data))
+		WeixinJSBridge.invoke('getBrandWCPayRequest', data,
+			function(res){     
+				if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+					// alert('支付成功：',JSON.stringify(res));
+					location.replace(params.returnurl);
+				}else{
+					// alert('支付失败：' + JSON.stringify(res));
+					$('#all').hide();
+				}
+			}
+		); 
+	}
+	function onBridgeReady(){
+		var payData = sessionStorage.getItem('SESSION_KEY_WX_PAY');
+		var amount = params.amount;
+		if(payData) {
+			payData = JSON.parse(payData);
+			sessionStorage.removeItem('SESSION_KEY_WX_PAY');
+			handleResult(payData);
+		}else if(!amount || amount < 0){
+			alert('参数出错');
+		}else{
+			createOrder(amount).then(handleResult, errorFn);
+		}
+		function handleResult(json){
+			orderData = json;
+			orderData['package'] = orderData['package'] || orderData['packageValue'];			
+			delete orderData.packageValue;
+
+			callWxPay(orderData);
+		}		
+	}
+	
+	function createOrder(amount){
+		return $.post('/wechat/pay/mp/createOrder',{
+			amountFen: amount
+		}).then(function(res){
+			if (res && res.code === 0 && res.data){
+				return res.data.wxPayMpOrderResult;
+			}else{
+				errorFn(res);
+			}
+		}, errorFn);
+	}
+	$('.j_return').click(function(){
+		location.replace(params.returnurl);
+	});
+
+	// createOrder().then(function(json){
+	// 	orderData = json.wxPayMpOrderResult;
+	// 	orderData.package = orderData.package || orderData.packageValue;
+	// 	orderData.timestamp = orderData.timestamp || orderData.timeStamp;
+		
+	// 	delete orderData.packageValue;
+	// 	// callWxPay(orderData);
+	// 	wx.config($.extend({
+	// 		debug: true,
+	// 		jsApiList: ['chooseWXPay']
+	// 	},orderData));
+	// 	wx.ready(function(){
+	// 		callWxPay()
+	// 		// alert(JSON.stringify(orderData))
+	// 		// wx.chooseWXPay($.extend({
+	// 		// 	success: function(){
+	// 		// 		alert('sss')
+	// 		// 	},
+	// 		// 	fail: function(res){
+	// 		// 		// alert(JSON.stringify(res))
+	// 		// 	}
+	// 		// },orderData));
+	// 	});
+	// });
+	if (typeof WeixinJSBridge === "undefined"){
+		if( document.addEventListener ){
+			document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+		}else if (document.attachEvent){
+			document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+			document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+		}
+	}else{
+		onBridgeReady();
+	}
+  </script>
+</html>

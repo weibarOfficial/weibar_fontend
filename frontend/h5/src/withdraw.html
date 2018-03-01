@@ -1,0 +1,78 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>提现</title>
+<meta content="user-scalable=0,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+
+
+<link rel="stylesheet" type="text/css" href="./style/basic.css?r=1509868591162"/>
+<link rel="stylesheet" type="text/css" href="./style/wmPhone.css?r=38"/>
+<script  type="text/javascript" src="./js/commons/jquery-1.10.2.min.js"></script>
+<script  type="text/javascript" src="./js/commons/wmPhone.js?r=42" charset="UTF-8"></script>
+
+<style>
+*{-webkit-tap-highlight-color:rgba(255,255,255,0);}
+body{background:#f6f6f6}
+.center{text-align:center}
+.pd{padding:0 15px;}
+.f16{font-size:14px; height:20px; line-height:20px; color:#999;}
+.wmDivBox{padding:15px 15px}
+.wmDiv{padding:10px 0}
+.wm_main{padding:20px 0px}
+.tMoney{padding:6px 10px 10px 15px;}
+.tMoney tt{font-size:25px;}
+.tMoney span{font-size:14px; position:relative; margin-left:5px; top:-1px}
+.getSelect{border-top:solid 1px #ddd; border-bottom:solid 1px #ddd; padding-bottom:20px;}
+.getSelect div:nth-child(2){margin:15px 0 0 0; height:30px; line-height:30px; font-size:14px; padding-left:40px; position:relative;}
+.getSelect div:nth-child(2) i{position:absolute; left:0; top:0;}
+
+.getMoney div:nth-child(2){position:relative;}
+.getMoney div:nth-child(2) p{border-bottom:solid 1px #ddd; position:relative; width:60%; height:30px; padding:0 0px; box-sizing:border-box;}
+.getMoney div:nth-child(2) input{border:none; height:30px; line-height:30px; width:100%; background:none;}
+.getMoney div:nth-child(2) p tt{height:30px; line-height:30px; position:absolute; right:5px; top:0; display:inline-block;}
+.getMoney div:nth-child(2) a{position:absolute; right:0; top:10px; height:30px; line-height:30px; display:inline-block; font-size:14px;}
+.getMoney div:nth-child(2) a i{position:relative; top:2px; margin-left:5px}
+
+.bottomBtn{display:inline-block; font-size:14px; padding:5px 20px; margin-top:10px}
+
+.info{padding-top:0}
+.info div{font-size:13px; color:#999; line-height:20px; margin:10px 0}
+</style>
+<!--<script src="./js/withdraw.js"></script>-->
+</head>
+
+<body>
+<div class="wm_main">
+	<div class="f16 pd">可提现余额</div>
+    <div class="tMoney"><tt id="allMoney" class="textGreen">0</tt><span class="textGreen">元</span></div>
+    <div class="wmDivBox getSelect">
+		<div class="f16">提现到</div>
+        <div>
+       		<i class="wechatIcon"></i>微信钱包
+        </div>
+	</div>
+    <div class="wmDivBox getMoney">
+    	<div class="f16">提现金额</div>
+        <div class="f16 wmDiv">
+        	<p><input type="number" id="money" /><tt>元</tt></p>
+        	<a id="getAll" >全部提现<i class="selNoSelect"></i></a> 
+        </div>
+    </div>
+    <div class="wmDivBox center">
+    	<a id="getMoneyBtn" class="btnNormal disabled">提现</a>
+        <a class="textGreen bottomBtn" href="./withdrawHistory.html">提现记录</a>
+    </div>
+    <div class="wmDivBox info">
+    	<div>提现说明</div>
+        <div>1、每个用户每天能提现10次</div>
+        <div>2、如打款失败，提现金额将退还到您的红包中</div>
+        <div>3、提现金额将通过微信红包发送，请及时领取</div>
+        <!--<div>4、每次提现最小金额10元最大金额200元</div>		-->
+    </div>
+</div>
+<div class="copyNormal">&copy;科技公司<span class="copyWemewIcon"></span></div>
+</body>
+</html>

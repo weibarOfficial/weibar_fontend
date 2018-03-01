@@ -1,0 +1,460 @@
+
+
+
+<!DOCTYPE html/>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>  
+</title>
+<meta content="user-scalable=0,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta name="format-detection" content="telephone=no, email=no" />
+<!--<link rel="stylesheet" href="./style/newOnWallSkin.css?r=3" />-->
+
+<!--
+<link rel="stylesheet" type="text/css" href="./style/basic.css?r=1509759104931"/>
+<link rel="stylesheet" type="text/css" href="./style/wmPhone.css?r=38"/>-->
+<script  type="text/javascript" src="./js/commons/jquery-1.10.2.min.js"></script>
+<script src="./js/commons/template-web.js"></script>
+<script  type="text/javascript" src="./js/commons/wmPhone.js?r=42" charset="UTF-8"></script>
+<script  type="text/javascript" src="./js/commons/sockjs.min.js"></script>
+<script  type="text/javascript" src="./js/commons/stomp.min.js?r=42" ></script>
+
+<!--<link rel="stylesheet" href="./style/swiper.css" />-->
+<!--新加css-->
+<!--<link rel="stylesheet" href="./style/onWallPhone.css?r=1509759104931" />-->
+<script  src="./js/commons/exif.js"></script>
+<script src="./js/commons/rem.js?r=1"></script>
+<script  src="./js/commons/swiper.js"></script>
+<style>
+	.my_icons img.man{
+		border:1px solid #4a78ff;
+	}
+	.my_icons img.woman{
+		border:1px solid #ff4b68;
+	}
+</style>
+<!--<script src="./js/index.js"></script>-->
+</head>
+
+<body>
+<div class="skinBg"></div>
+<!--这里放系统背景图片 居中对齐：wmBgImageCenter  底部对齐：wmBgImageBottom-->
+
+<div class="newWallHead">
+	<div class="marqureeBox">
+        <span class="skin-sky-blurTop"></span>
+        <span class="marqureeIcon"></span>
+        <div class="marqureeList">
+            <ul class="marqureeUl"></ul>
+        </div>
+    </div>
+    <!--顶部图标-->
+    <!--<div class="fixedIcon">
+		<a class="fixedIcon-gold" onclick="zdRicher.show()">
+			<img class="newIc-gold" src="http://img.wemew.com/wemew/wechat/images/newIc-gold.png" />
+		</a>
+		<a class="oneFixedIcon" onclick="allGame.show()">
+			<img class="newIc-game fixed-newIc" src="http://img.wemew.com/wemew/wechat/images/newIc-game.png" />
+			<span>游戏</span>
+		</a>
+    </div>-->
+</div>
+<div class="userBox j_userBox">
+	<div class="userBoxAllBg"></div>
+	<div class="userInfo overlay cy_clearfix">
+			<div style="width: 15%;float: left;height: 40px;" class="grade_change">
+
+			</div>
+			<div style="width: 80%;float: right">
+				<div class="userTip"><span><tt id="userTipIndex"></tt>点击屏幕返回</span></div>
+				<p class="p1"></p>
+				<p class="p2"></p>
+				<p class="p3"></p>
+			</div>
+
+			<div class="aBox"></div>
+
+	</div>
+	<a class="FuckYou_close" style="z-index:9"></a>
+</div>
+
+<div class="wm_main">
+    <div class="loadMore animate">
+        <span class="loadingImg"><span></span></span><tt>正在为您加载</tt>
+    </div>
+    <div class="onWallMain">
+        <input type="hidden" id="first" />
+    </div>
+</div>
+
+<!--底部-->
+<div class="newFoot">
+	<span class="skin-sky-blurDown"></span>
+	<div class="newFoot-Icon">
+		<a class="wemewPhoneRedBag j_showRedBag"></a>
+		<a class="wemewPhoneDs j_showDsPanel"></a>
+		<a class="wemewPhoneBp j_showSparmPanel" ></a>
+    </div>
+	<div class="newFoot-txt"  id="j_msgFormCnt">
+		<a class="my_icons j_showProfile">
+			<img class="man j_logo" />
+			<span class="my_line"></span>
+			<span class="my_msg_radio" style="display: none"></span>
+		</a>
+        <a class="newIc-pic"><input id="upload" accept="image/*" class="file" type="file"  /></a>
+        <a class="newIc-emoji j_popFacePanel"></a>
+        <div class="newFoot-inputBox">
+        	<div>
+                <a id="submit" style="padding:7px 10px">
+                    <i class="newIc-submit"></i>
+                </a>
+                <form id="form">
+                	<input type="text" id="txt" placeholder="上墙内容" />
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="allFace hide" id="allFace"></div>
+</div>
+
+<!--视频-->
+<div id="videoBox">
+	<div class="_videoBox">
+        <div class="videoBoxCover" onclick="getPoster.close()"></div>
+        <div class="onVideo">
+        	<span class="videoClose" onclick="getPoster.close()"></span>
+            <video controls autoplay webkit-playsinline></video>  	
+        </div>    
+    </div>
+</div>
+
+<div id="newRicherAll">
+	<div class="newRicherCover" onclick="zdRicher.close()"></div>
+	<div class="newRicherAll">
+		<div class="newRicherMain newRicherBg">
+			<div class="richerHead">壕榜<a class="richerClose" onclick="zdRicher.close()"></a></div>
+			<div class="newRicher_navBox">
+				<a class="nav-sel show" onclick="zdRicher.change(this)">
+					<span class="nav-change">
+						<i class="nav-change-icon nx1 nav-change-iconHat"></i>
+						<i class="nav-change-icon nx2 nav-change-iconHat_"></i>
+						<tt class="nav-text">壕榜</tt>
+					</span>
+					<tt class="nav-line"></tt>
+				</a>
+				<a class="nav-sel" onclick="zdRicher.change(this)">
+					<span class="nav-change">
+						<i class="nav-change-icon nx1 nav-change-iconUser"></i>
+						<i class="nav-change-icon nx2 nav-change-iconUser_"></i>
+						<tt class="nav-text">钻石级到店</tt>
+					</span>
+					<tt class="nav-line"></tt>
+				</a>
+			</div>
+			<div class="newRicherMenu show">
+				<div class="newRicher_no1">
+					<span class="newRicher_no1Span">
+						<img class="richerPhone_no1User" />
+						<tt class="richerPhone_no1"></tt>
+					</span>
+					<div class="richerPhone_no1Info"></div>
+				</div>
+				<div style="margin-top:10px;">
+					<img width="100%" src="http://img.wemew.com/wemew/wechat/images/richerPhone_listIcon.png" />
+					<div class="richerPhone_list"></div>
+				</div>
+			</div>
+			<div class="newRicherMenu">
+				<div class="vipPhone_list"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--普通模板 -->
+<script type="text/html" id="msgTpl">
+<div class="{{_ownerCls}} row {{_normalMsgCls}} {{_onlyText}} j_row" mid="{{messageId}}"
+	 data-status="{{status}}" data-type="{{type}}">
+	<a class="{{_sexCls}} j_popProfile"
+	 data-src="{{userPic}}"  data-name="{{nickName}}"
+	 data-userpic="{{userPic}}" data-sex="{{sex}}"
+	 data-uid="{{userId}}"} >
+		<img src="{{userPic}}" class="face" />
+		<!--<img src="./images/grade/qt1.png" width="80px" class="grade " />
+		<span class="gradeName">青铜1级</span>-->
+	</a>
+	<span class="content">
+		<tt class="name">{{nickName}}<i class="time">&nbsp;&nbsp;{{_timeStr}}</i></tt>
+		<tt class="txt">
+			<i class="{{_bpIcon}} {{_dsIcon}}"></i>
+			<span class="imArr"></span>
+			<span class="txtSpan">
+				{{if _bpTxt}}
+				<p class="txtSpanTop pr25"><span class="txtSpanBp">{{_bpTxt}}</span></p>
+				{{/if}}
+				{{if _dsIcon}}
+				<p class="txtSpanTop pr25"><span class="txtSpanBp">
+					打赏给&nbsp;&nbsp;"{{giveInfo.givenUserName}}"&nbsp;&nbsp;
+					<img src="{{giveInfo.giftImgUrl}}" height="14" />
+					{{giveInfo.giftName}}
+					</span>
+				</p>
+				{{/if}}
+				{{if _imgArr}}
+					{{each _imgArr item}}
+						<div class="someImgBox">
+							<img class="j_showImage j_pic" src="{{item}}" />
+						</div>
+					{{/each}}
+				{{else if msgImgUrl}}
+				<img class="bg {{_hasTextCls}} j_showImage j_pic" src="{{msgImgUrl}}" />
+				{{else if giveInfo && giveInfo.givenUserImgUrl}}
+				<img class="bg img j_showImage" src="{{giveInfo.givenUserImgUrl}}" />
+				{{/if}}
+				{{if !_bpIcon && !_dsIcon}}
+					<tt>{{@content || ''}}</tt>
+				{{/if}}
+				<p class="clear"></p>
+				{{if _bpIcon}}
+				<p class="txtSpanDown">{{@content || ''}}</p>
+				{{else if _dsIcon}}
+				<p class="txtSpanDown">{{@giveInfo.content || ''}}</p>
+				{{/if}}
+				<b class="fgLine {{_hideLineCls}}">
+					<img src="http://www.yylive.com/static/images/fgLine.png">
+				</b>
+				{{if _forTaBp}}
+				<span class="forTaBp">
+					<a class="j_showSparmForTa">为TA霸屏</a>
+				</span>
+				{{/if}}
+			</span>
+		</tt>
+		{{if _isSelf}}
+		<tt class="action clearfix">
+			<span class="aDel j_delMsg">删除</span>
+		</tt>
+		{{/if}}
+	</span>	
+</div>	
+</script>
+
+<!--红包消息模板 -->
+<script type="text/html" id="redBagTpl">
+<div class="row j_row" mid="{{messageId}}" rbid="{{redPackageId}}" rb-status="{{redPackageStatus}}" 
+	money="{{userRedPackage && userRedPackage.amount}}">
+	<a class="{{_sexCls}} j_popProfile j_userInfo"
+	 data-src="{{userPic}}"  data-name="{{nickName}}"
+	 data-userpic="{{userPic}}" data-sex="{{sex}}"
+	 data-uid="{{userId}}"} >
+		<img class="face" src="{{userPic}}">
+		<!--<img src="./images/grade/by1.png" width="80px" class="grade" alt="">
+		<span class="gradeName cy_test_grade by_color cy_pa">白银4级</span>-->
+	</a>
+	
+	<span class="content">
+		<tt class="name">{{nickName}}&nbsp;&nbsp;<i class="time">{{_timeStr}}</i></tt>
+		<a class="onWall_redBagShow j_openRedBag" >
+			<tt><span class="j_rbTitle">{{redPackageTitle}}</span></tt>
+		</a>
+		<tt class="action"><div style="clear:both;"></div></tt>
+	</span>	
+</div>
+</script>
+
+<script type="text/html" id="redBagOpenTpl">
+<div id="redBagBox" class="redBagBox">
+	<div class="table">
+		<span class="tableSpan">
+			<div class="redBoxCoover j_closeRbBox"></div>
+			<div class="redBoxInfo animate">
+				<a class="redBagBoxClose j_closeRbBox"></a>
+				<img class="onWall_redBagBig" src="{{rbPic}}" />
+				<div class="_redBoxInfo">
+					<img class="redBagUser" src="{{userPic}}" />
+					<p>{{name}}</p>
+					<p>发了一个红包，金额随机</p>
+					{{if money > 0}}
+						<div class="rbShowMoney">{{money.toFixed(2)}}<i>元</i></div>
+					{{else if money === 0}}
+					<div class="numDiv"><div class="numDivBox"></div></div>
+				    <p class="redBoxInfoResult">{{info}}</p>
+				    <a class="chaiBox j_chaiRedBag"  rbid="{{rbId}}">
+				    	<img class="chai" width="30%" src="{{chaiPic}}" />
+				    </a>
+					{{else if money === -2}}
+						<p class="redBoxInfoResult">对不起，红包已过期</p>
+					{{else}}
+						<p class="redBoxInfoResult">手慢了，红包已抢完了</p>
+					{{/if}}
+					<p>
+						<a rbid="{{rbId}}" class="j_goToResult" href="./redbag.html?rbid={{rbId}}">看看大家的手气<i class="arrowRightYellow"></i></a>
+					</p>
+				</div>
+			</div>
+		</span>
+	</div>
+</div>
+</script>
+<script type="text/html" id="spamPanelTpl">
+{{if isForTa}}
+<div style="text-align:center; padding:0px 0 5px 0">
+	<img src="{{pic}}" style="border-radius:50%; width:46px; height:46px" />
+</div>
+{{/if}}
+<div class="bpTimeTitle">
+	<div>霸屏时长</div>
+	<div style="position:relative;">
+		<div class="bpTimeTitleSelect">
+			<div class="bpTimeText"><i id="bpText1" data-num="1">连续霸屏</i><i></i></div>
+			<select id="select" class="bpSelect">
+				<option value="1">1次霸屏</option><option value="2">2连霸屏</option>
+				<option value="3">3连霸屏</option><option value="4">4连霸屏</option>
+				<option value="5">5连霸屏</option><option value="10">10连霸屏</option>
+			</select>
+		</div>
+	</div>
+</div>
+<div class="wm_otherBar">
+	<div class="bpTimeList dsObjMain">
+		<div class="wInfinity dsObjBox dsObjBox1">
+			{{each bpTimes item}}
+				<div class="oneBpTime" data-price="{{item.price}}" data-time="{{item.second}}">
+					<div class="bpTimeBigBox">
+						<div class="bpTimeSmallBox table">
+							<div class="tableCell black">{{item.second}}秒</div>
+						</div>
+					</div>
+					<div class="bpTimePrice table">
+						<div class="tableCell grey">¥{{item.price}}</div>
+					</div>
+					<i class="bpTimeSelect"></i>
+				</div>
+			{{/each}}
+		</div>
+	</div>
+</div>
+<div class="bpTimeTitle" style="padding-bottom:5px">
+	<div>霸屏主题</div>
+</div>
+<div class="wm_otherBar">
+	<div class="bpTypeList">
+		<div class="wInfinity dsObjBox dsObjBox1">
+			{{each bpThemes  item}}
+			<div class="oneBpType" data-type="{{item.id}}">
+				<div class="bpTypeIcon">
+					<img src="{{item.imgUrl}}" class="bpThemePic"/>
+				</div>
+				<div class="bpTypeName">{{item.name}}</div>
+				<i class="bpTimeSelect"></i>
+			</div>
+			{{/each}}
+		</div>
+	</div>
+</div>
+<div class="showMoney" style="margin:0">
+	<div><input type="text" class="inputNormal" id="_bpWord" maxlength="60" placeholder="请不要发布广告涉黄等内容，霸屏不支持退款" style="font-size:13px; text-indent:14px; box-sizing:border-box; height:40px; line-height:41px; padding:0px" /></div>
+	{{if !isForTa}}
+	<div class="textRed" id="newImgUploadTxt" style="margin-top:6px; font-size:12px">可以上传1张图片</div>
+		<div class="wm_otherBar" style="margin-top:0px">
+			<div class="uploadMain">
+				<div class="uploadImgBox j_uploadBox">
+					<div class="_oneUpload j_fileBox">
+						<input type="file" class="file j_file" accept="image/*"/><i class="iconImImgBaPing"></i>
+					</div>
+				<div class="oneUpload oneUploadImg j_loading"><i class="onloading"></i></div>
+			</div>
+		</div>
+	</div>
+	{{/if}}
+</div>
+<div id="j_priceBox" >
+</div>
+</script>
+<script type="text/html" id="profileTpl">
+<div class="newMy_box" id="j_profilePopPanel">
+  <div class="newMy_msg">
+    <div class="newMy_msgHead">
+      <img class="{{headCls}}" src="{{userPicture}}" alt="">
+      <span class="my_grade cy_pa">
+        <img src="./images/grade/by1.png" width="60px" alt=""></span>
+    </div>
+    <div class="newMy_content">
+      <div class="newMy_table">
+        <div class="newMy_cell">
+          <span>
+            <tt class="ellipsis" style="display: inline-block;max-width: 90%">{{nickname}}</tt>
+            <i class="newMy_sex {{sexCls}}"></i>
+          </span>
+          <!--<span style="color: #ff4b69;">白银4级</span>-->
+          <!--<div style="">
+            <span style="color: #333;font-size: 12px;">积分:0</span>
+            <span style="width: 150px;height: 2px;border: 1px solid #ececec;position: relative;margin-top: 2px;margin-left: 1px">
+              <span style="width: 2px;height: 4px;background-color: #ededed;position: absolute;top: -1px;"></span>
+            </span>
+          </div>-->
+        </div>
+      </div>
+    </div>
+    <!--<div class="newMy_msg_link">
+      <a style="position: relative">编辑资料
+        <span class="arrIcon"></span></a>
+    </div>-->
+  </div>
+  <!--<div class="dj_tq">
+    <div class="" style="border-top: .9px solid #ececec;padding: 18px 0 0px 0">
+      <div class="mb_content">
+        <div class="dj_icons"></div>
+        <div class="mb_text">我的等级&nbsp;&nbsp;
+          <span>lv1</span>
+          <div class="newMy_msg_link cy_my_btn">
+            <a style="position: relative" class="lookG">升级和特权
+              <span class="arrIcon"></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>-->
+  <div class="newMy_mb">
+    <div class="mb_content">
+      <div class="mb_icons"></div>
+      <div class="mb_text">账户余额:
+        <div class="mb_recharge">
+					
+					<a class="recharge_a j_encharge">充值</a>
+					<a class="recharge_a" href="./withdraw.html">提现</a>
+					<!--<a class="recharge_a" >明细</a>-->
+			</div>
+		</div>
+		<div class="mb_number"><span id="mb_number">{{balance}}</span>元</div>
+	  </div>
+      <div class="newMy_line"></div>
+  </div>
+  <div class="newMy_mb" style="margin-top:0;padding-top:0;">
+    <div class="mb_content">
+      <div class="mb_icons my_skin"></div>
+      <div class="mb_text">皮肤</div>
+      <div class="mb_number clearfix">
+        <div class="oneSkin newMy_sky_sel">
+          <img src="./images/newMy_skin_sky.png" alt="">
+          <span>星空</span>
+          <i class="sky_sel"></i>
+        </div>
+        <div class="oneSkin">
+          <img src="./images/newMy_skin_night.png" alt="">
+          <span>雨夜</span>
+          <i class="sky_sel"></i>
+        </div>
+        <div class="oneSkin">
+          <img src="./images/newMy_skin_magic.png" alt="">
+          <span>魔法</span>
+          <i class="sky_sel"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</script>
+</body>
+</html>

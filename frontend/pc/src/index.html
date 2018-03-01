@@ -1,0 +1,674 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>	
+<title>GAGABAR_秉烛科技上墙</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="renderer" content="webkit">
+<link rel="shortcut icon" type="image/x-icon" href="http://img.wemew.com/wemew/images/favicon.ico" />
+<!--<link rel="stylesheet" href="./style/icon.css" />
+<link rel="stylesheet" href="./style/wemewOnWall.css" />
+<link rel="stylesheet" href="./style/swiper.css" />
+<link rel="stylesheet" href="./style/tools.css" />-->
+
+<script src="./js/commons/jquery-1.10.2.min.js"></script>
+<script src="./js/commons/jquery.mousewheel.js"></script>
+<script src="./js/commons/template-web.js"></script>
+<script src="./js/commons/swiper.js"></script>
+<script src="./js/commons/circles.js"></script>
+<script src="./js/commons/swfobject.js"></script>
+<script src="./js/commons/three.js"></script>
+
+<script  type="text/javascript" src="./js/commons/sockjs.min.js"></script>
+<script  type="text/javascript" src="./js/commons/stomp.min.js?r=42" ></script>
+<!--<script src="./js/modules/sliderAnimate.js"></script>-->
+<!--<script src="./js/modules/bpControl.js" charset="UTF-8"></script>-->
+<!--<script src="./js/modules/bpControl.bpBg.js"></script>-->
+
+<script src="./js/modules/bgCanvas.js"></script>
+<script src="./js/modules/tools.js"></script>
+
+<style id="msglight"></style>
+<script>
+var outsideBar='false';
+
+var headerImg = './images';//'http://img.wemew.com/wemew/admin/images';
+var halloweenFlag = false;
+//所有图片路径
+var allImage = {
+	//酒吧logo
+	logo:'./images/bardefatulLogo.png',	
+	//背景图片
+	bg:'./images/onWallBg.jpg',
+	
+	//轮播图默认图片
+	loopErrorSrc:'./images/onwallNoimg.jpg',
+	
+	//霸屏被删除替换图片
+	noImgSrc:'http://img.wemew.com/wemew/admin/images/tpsc.png',
+	//默认蛋糕图片
+	noCakeSrc:'http://img.wemew.com/wemew/admin/images/noCakeImg.jpg',
+	//星星图片
+	starSrc:'./images/richStarIcon.png',
+	//眼缘图片
+	loveNightSrc:'http://img.wemew.com/wemew/admin/images/loveNightPc.png',
+	//就座 送酒
+	signUpBg1:'http://img.wemew.com/wemew/admin/images/signUpBg1.png',
+	signUpBg2:'http://img.wemew.com/wemew/admin/images/signUpBg2.png',
+	sendWineBg1:'http://img.wemew.com/wemew/admin/images/sendWineBg1.png',
+	sendWineBg2:'http://img.wemew.com/wemew/admin/images/sendWineBg2.png',
+	//土豪+红包
+	activeBottom:'./images/active_bottom.png?r=1',
+	activeStar2:'./images/active_star2.png',
+	activeStar1:'./images/active_star1.png',
+	activeAcer:'http://img.wemew.com/wemew/admin/images/active_acer.png',
+	activeRedBag:'./images/active_redBag.png?r=1',
+	activeRedBrand:'./images/active_redBrand.png?r=1',
+	activeRichBrand1:'http://img.wemew.com/wemew/admin/images/active_richBrand1.png?r=1',
+	activeRichBrand2:'http://img.wemew.com/wemew/admin/images/active_richBrand2.png?r=1',
+	activeSongBrand:'http://img.wemew.com/wemew/admin/images/active_songBrand.png',
+	activeBottomSong:'http://img.wemew.com/wemew/admin/images/active_bottomSong.png',
+	activeSongBg:'http://img.wemew.com/wemew/admin/images/active_songBg.png',
+    cy_hw:'http://img.wemew.com/wemew/admin/images/halloween/hwbg.png',
+    cy_hw1:'http://img.wemew.com/wemew/admin/images/halloween/touxian.png',
+	//新的霸屏
+	newBp_onlyImage:'http://img.wemew.com/wemew/admin/images/newBp_onlyImage.png',
+	newBp_countTime:'http://img.wemew.com/wemew/admin/images/newBp_countTime.png?r=1',
+	newBp_textBoxTop:'http://img.wemew.com/wemew/admin/images/newBp_textBoxTop.png?r=1',
+	newBp_textBoxCenter:'http://img.wemew.com/wemew/admin/images/newBp_textBoxCenter.png?r=1',
+	newBp_textBoxBottom:'http://img.wemew.com/wemew/admin/images/newBp_textBoxBottom.png?r=1',
+	bpUser_man:'./images/bpUser_man.png',
+	bpUser_woman:'./images/bpUser_woman.png',
+	
+	//土豪榜
+	module_richTop1:'http://img.wemew.com/wemew/admin/images/module_richTop1.png',
+	module_richTop2:'http://img.wemew.com/wemew/admin/images/module_richTop1.png',
+	module_richTop3:'http://img.wemew.com/wemew/admin/images/module_richTop1.png',
+	module_richNoTop:'http://img.wemew.com/wemew/admin/images/module_richNoTop.png',
+	//雪花图片
+	snowSrc:'http://img.wemew.com/wemew/admin/images/ParticleSmoke.png',
+	//新的图片
+	onWallBpHorn_theme0:'http://img.wemew.com/wemew/admin/images/onWallBpHorn_theme0.png',
+	onWallBpHorn_theme1:'http://img.wemew.com/wemew/admin/images/onWallBpHorn_theme1.png',
+	onWallBpHorn_theme2:'http://img.wemew.com/wemew/admin/images/onWallBpHorn_theme2.png',
+	onWallBpHorn_theme3:'http://img.wemew.com/wemew/admin/images/onWallBpHorn_theme3.png',
+	onWallBpHorn_themeBp:'http://img.wemew.com/wemew/admin/images/onWallBpHorn_themeBp.png',
+	onWallWomanCircle1:'http://img.wemew.com/wemew/admin/images/onWallWomanCircle1.png',
+	onWallWomanCircle2:'http://img.wemew.com/wemew/admin/images/onWallWomanCircle2.png',
+	onWallManCircle1:'http://img.wemew.com/wemew/admin/images/onWallManCircle1.png',
+	onWallManCircle2:'http://img.wemew.com/wemew/admin/images/onWallManCircle2.png',
+	onWallHat1:'http://img.wemew.com/wemew/admin/images/onWallHat1.png',
+	themeName_theme0:'http://img.wemew.com/wemew/admin/images/themeName_theme0.png',
+	themeName_theme1:'http://img.wemew.com/wemew/admin/images/themeName_theme1.png',
+	themeName_theme2:'http://img.wemew.com/wemew/admin/images/themeName_theme2.png',
+	themeName_theme3:'http://img.wemew.com/wemew/admin/images/themeName_theme3.png',
+	themeName_themeBp:'http://img.wemew.com/wemew/admin/images/themeName_themeBp.png',
+	themeCover_theme0:'http://img.wemew.com/wemew/admin/images/themeCover_theme0.png',
+	themeCover_theme1:'http://img.wemew.com/wemew/admin/images/themeCover_theme1.png',
+	themeCover_theme2:'http://img.wemew.com/wemew/admin/images/themeCover_theme2.png',
+	themeCover_theme3:'http://img.wemew.com/wemew/admin/images/themeCover_theme3.png',
+	themeCover_themeBp:'http://img.wemew.com/wemew/admin/images/themeCover_themeBp.png',
+	themeLogo_theme0:'http://img.wemew.com/wemew/admin/images/themeLogo_theme0.png',
+	themeLogo_theme1:'http://img.wemew.com/wemew/admin/images/themeLogo_theme1.png',
+	themeLogo_theme2:'http://img.wemew.com/wemew/admin/images/themeLogo_theme2.png',
+	themeLogo_theme3:'http://img.wemew.com/wemew/admin/images/themeLogo_theme3.png',
+	themeLogo_themeBp:'http://img.wemew.com/wemew/admin/images/themeLogo_themeBp.png',
+	//新的主题
+	onWallBpHorn_theme4:'http://img.wemew.com/wemew/admin/images/onWallBpHorn_theme4.png',
+	onWallBpHorn_theme5:'http://img.wemew.com/wemew/admin/images/onWallBpHorn_theme5.png',
+	onWallBpHorn_theme6:'http://img.wemew.com/wemew/admin/images/onWallBpHorn_theme6.png',
+	onWallBpHorn_theme7:'http://img.wemew.com/wemew/admin/images/onWallBpHorn_theme7.png',
+	themeName_theme4:'http://img.wemew.com/wemew/admin/images/themeName_theme4.png',
+	themeName_theme5:'http://img.wemew.com/wemew/admin/images/themeName_theme5.png',
+	themeName_theme6:'http://img.wemew.com/wemew/admin/images/themeName_theme6.png',
+	themeName_theme7:'http://img.wemew.com/wemew/admin/images/themeName_theme7.png',
+	themeCover_theme4:'http://img.wemew.com/wemew/admin/images/themeCover_theme4.png',
+	themeCover_theme5:'http://img.wemew.com/wemew/admin/images/themeCover_theme5.png',
+	themeCover_theme6:'http://img.wemew.com/wemew/admin/images/themeCover_theme6.png',
+	themeCover_theme7:'http://img.wemew.com/wemew/admin/images/themeCover_theme7.png',
+	themeLogo_theme4:'http://img.wemew.com/wemew/admin/images/themeLogo_theme4.png',
+	themeLogo_theme5:'http://img.wemew.com/wemew/admin/images/themeLogo_theme5.png',
+	themeLogo_theme6:'http://img.wemew.com/wemew/admin/images/themeLogo_theme6.png',
+	themeLogo_theme7:'http://img.wemew.com/wemew/admin/images/themeLogo_theme7.png',
+	//新的打赏图片
+	newDsBg:'./images/dsToBg.png',
+	dsToMan:'./images/dsToMan.png',
+	dsToWoMan:'./images/dsToWoman.png',
+	dsToObj:'./images/dsToObj.png',
+	dsToCenter:'http://img.wemew.com/wemew/admin/images/dsToCenter.png',
+	dsTextBg:'http://img.wemew.com/wemew/admin/images/dsTextBg.png',
+	dsJt:'./images/dsJt.png',
+	//7.17新加图片
+	bpHead_womanWing:'http://img.wemew.com/wemew/admin/images/bpHead_womanWing.png',
+	bpHead_manWing:'http://img.wemew.com/wemew/admin/images/bpHead_manWing.png',
+	//活动图片
+	wemewActive_x1:'http://img.wemew.com/wemew/admin/images/wemewActive_x1.png',
+	wemewActive_x2:'http://img.wemew.com/wemew/admin/images/wemewActive_x2.png',
+	wemewActive_x3:'http://img.wemew.com/wemew/admin/images/wemewActive_x3.png',
+	/*PK*/
+	bg_tp_no1:'http://img.wemew.com/wemew/admin/images/bg_tp_no1.png',
+	bg_tp_no1:'http://img.wemew.com/wemew/admin/images/bg_tp_no2.png',
+	bg_tp:'http://img.wemew.com/wemew/admin/images/bg_tp.png',
+	pk_pcTitleBg:'http://img.wemew.com/wemew/admin/images/pk_pcTitleBg.png',
+	pk_title1:'http://img.wemew.com/wemew/admin/images/pk_title1.png',
+	pk_title2:'http://img.wemew.com/wemew/admin/images/pk_title2.png',
+	pk_title3:'http://img.wemew.com/wemew/admin/images/pk_title3.png',
+	
+	qixi_broad1:'http://img.wemew.com/wemew/admin/images/qixi_newbroad1.png',
+	qixi_broad2:'http://img.wemew.com/wemew/admin/images/qixi_newbroad2.png',
+	qixi_broad3:'http://img.wemew.com/wemew/admin/images/qixi_newbroad3.png',
+	qixi_broad4:'http://img.wemew.com/wemew/admin/images/qixi_newbroad4.png',
+	qixi_jp1:'http://img.wemew.com/wemew/admin/images/qixi_jp1.png',
+	qixi_jp2:'http://img.wemew.com/wemew/admin/images/qixi_jp2.png',
+	qixi_jp3:'http://img.wemew.com/wemew/admin/images/qixi_jp3.png',
+	/*模块*/
+	hb_jb:'http://img.wemew.com/wemew/admin/images/module/hb_jb.png',
+	hb_hby:'http://img.wemew.com/wemew/admin/images/module/hb_hby.png',
+	hb_tz:'http://img.wemew.com/wemew/admin/images/module/hb_tz.png',
+	hb_no1:'http://img.wemew.com/wemew/admin/images/module/hb_no1.png',
+	hb_no2:'http://img.wemew.com/wemew/admin/images/module/hb_no2.png',
+	hb_no3:'http://img.wemew.com/wemew/admin/images/module/hb_no3.png',	
+	ds_lw_bg:'http://img.wemew.com/wemew/admin/images/module/ds_lw_bg.png',
+	ds_wsyr_one:'http://img.wemew.com/wemew/admin/images/module/ds_wsyr_one.png',
+	ds_wsyr_twe:'http://img.wemew.com/wemew/admin/images/module/ds_wsyr_twe.png',
+	ds_jt:'http://img.wemew.com/wemew/admin/images/module/ds_jt.png',
+	ds_sdlw:'http://img.wemew.com/wemew/admin/images/module/ds_sdlw.png',
+	ds_lw_sl:'http://img.wemew.com/wemew/admin/images/module/ds_lw_sl.png',
+	ds_yr_zp:'http://img.wemew.com/wemew/admin/images/module/ds_yr_zp.png',
+	dg_music_one:'http://img.wemew.com/wemew/admin/images/module/dg_music_one.png',
+	dg_music_twn:'http://img.wemew.com/wemew/admin/images/module/dg_music_twn.png',
+	dg_gd_bg:'http://img.wemew.com/wemew/admin/images/module/dg_gd_bg.png',
+	levelLight:'http://img.wemew.com/wemew/admin/images/level/levelLight.png',
+	levelLightBg:'http://img.wemew.com/wemew/admin/images/level/levelLightBg.png',
+	richer_winger:'http://img.wemew.com/wemew/admin/images/module/richer_winger.png',
+	richer_noUser:'http://img.wemew.com/wemew/admin/images/module/richer_noUser.png',
+	richer_no0:'http://img.wemew.com/wemew/admin/images/module/richer_no0.png',
+	richer_no1:'http://img.wemew.com/wemew/admin/images/module/richer_no1.png',
+	richer_no2:'http://img.wemew.com/wemew/admin/images/module/richer_no2.png',
+	richer_no3:'http://img.wemew.com/wemew/admin/images/module/richer_no3.png',
+	richer_pt:'http://img.wemew.com/wemew/admin/images/module/richer_pt.png'
+}
+
+//所有数据
+var allData = {
+	//socket地址
+	ws:'ws://118.190.23.192:8081/websocket/weionwall/bc2a762f-6d20-4b73-a8eb-a9a8fafc5045/false',
+	//酒吧id
+	barId:'bc2a762f-6d20-4b73-a8eb-a9a8fafc5045',
+	//酒吧名称
+	barName:'GAGABAR',
+	//音频路径	
+	audioUrl:['http://img.wemew.com/wemew/admin/images/audio/bp.mp3','http://img.wemew.com/wemew/admin/images/audio/ds.wav'],
+	//轮播图初始数据
+	loopImageList:['http://wemew.oss-cn-qingdao.aliyuncs.com/2017-10-30-21/150937037410434096.jpg,http://wemew.oss-cn-qingdao.aliyuncs.com/2017-10-30-21/150937038574112759.jpg','http://wemew.oss-cn-qingdao.aliyuncs.com/2017-10-30-15/150935022425662645.jpg','http://wemew.oss-cn-qingdao.aliyuncs.com/2017-10-30-11/150933455566904076.jpg','http://wemew.oss-cn-qingdao.aliyuncs.com/2017-10-29-18/150927399940976701.jpg','http://wemew.oss-cn-qingdao.aliyuncs.com/2017-10-29-18/150927211502065531.jpg','http://wemew.oss-cn-qingdao.aliyuncs.com/2017-10-29-18/150927161765801632.jpg','http://wemew.oss-cn-qingdao.aliyuncs.com/2017-10-29-18/150927161765801632.jpg','http://wemew.oss-cn-qingdao.aliyuncs.com/2017-10-29-18/150927161765801632.jpg'],
+	//视频路径前缀
+	videoUrl:'http://wemew.oss-cn-qingdao.aliyuncs.com/videos/newds/',
+	//打赏数据
+	dsData:{
+		'1':{name:'金话筒',iconName:'newDsIcon_mic',time:20,src:'ds_mic.webm',img:'http://img.wemew.com/wemew/admin/images/dsVideo_mic.jpg',data:null},
+		'2':{name:'比基尼',iconName:'newDsIcon_bigini',time:20,src:'ds_bigini.webm',img:'http://img.wemew.com/wemew/admin/images/dsVideo_bigini.jpg',data:null},
+		'3':{name:'玫瑰花海',iconName:'newDsIcon_flowers',time:20,src:'ds_flowers.webm',img:'http://img.wemew.com/wemew/admin/images/dsVideo_flowers.jpg',data:null},
+		'4':{name:'蓝玫瑰',iconName:'newDsIcon_blueRose',time:20,src:'ds_blueRose.webm',img:'http://img.wemew.com/wemew/admin/images/dsVideo_blueRose.jpg',data:null},
+		'5':{name:'跑车',iconName:'newDsIcon_ferrari',time:20,src:'ds_ferrari.webm',img:'http://img.wemew.com/wemew/admin/images/dsVideo_ferrari.jpg',data:null},
+		'0':{name:'人气流星雨',iconName:'newDsIcon_meteor',time:20,src:'ds_meteor.webm',img:'http://img.wemew.com/wemew/admin/images/dsVideo_meteor.jpg',data:null},
+		'6':{name:'皇冠',iconName:'newDsIcon_crown',time:20,src:'ds_crown.webm',img:'http://img.wemew.com/wemew/admin/images/dsVideo_crown.jpg',data:null},
+		'7':{name:'香水',iconName:'newDsIcon_perfume',time:20,src:'ds_perfume.webm',img:'http://img.wemew.com/wemew/admin/images/dsVideo_perfume.jpg',data:null},
+		'8':{name:'洋酒',iconName:'newDsIcon_wine',time:20,src:'ds_wine.webm',img:'http://img.wemew.com/wemew/admin/images/dsVideo_wine.jpg',data:null},
+		'9':{name:'香烟',iconName:'newDsIcon_cigarette',time:20,src:'ds_cigarette.webm',img:'http://img.wemew.com/wemew/admin/images/dsVideo_cigarette.jpg',data:null},
+		'10':{name:'游艇',iconName:'newDsIcon_yacht',time:20,src:'ds_yacht.webm',img:'http://img.wemew.com/wemew/admin/images/dsVideo_yacht.jpg',data:null},
+		'11':{name:'美人粽',iconName:'newDsIcon_zongzi',time:20,src:'ds_zongzi.webm',img:'http://img.wemew.com/wemew/admin/images/dsVideo_zongzi.jpg',data:null},
+		//生日蛋糕
+		'-1':{name:'生日蛋糕',iconName:'newDsIcon_Birthdaycake',time:20,src:'ds_cake.webm',img:'http://img.wemew.com/wemew/admin/images/dsVideo_cake.jpg',data:null}	
+	}, 
+	//倒计时
+	bpCount:'bpCountDown.webm?a=2',
+	//霸屏视频
+	bpVideoBg:[],
+	//主题视频
+	themeVideo:['theme_love.webm','theme_tryst.webm','theme_propose.webm','theme_beautiful.webm','theme_by.webm','theme_cake.webm','theme_qixi.webm','theme_gq.webm'],
+	//主题背景
+	themeBgVideo:['bp_love.webm?r=1','bp_tryst.webm?r=1','bp_propose.webm?r=1','bp_beautiful.webm?r=1','bp_by.webm','bp_cake.webm','bp_qixi.webm','bp_gq.webm'],
+	bpVideoBgData:[],
+	//已开通功能
+	openActive:{
+		'赛马':{
+			icon:'icon_module9',
+			url:'/preliminary?barid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'	
+		},
+		'赛车':{
+			icon:'icon_module20',
+			url:'/carpreliminary?barid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+		},
+		'剪刀石头布':{
+			icon:'icon_module21',
+			url:'/fingerGameUrl?barid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+		},
+		'现场夺宝':{
+			icon:'icon_module23',
+			url:'/getTreasure?barid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+		},
+		'投票':{
+			icon:'icon_module24',
+			url:'/votePcPascreen?barid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+		},
+		'摇一摇':{
+			icon:'icon_module27',
+			url:'/shakPortpc?barid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+		},
+		'数钱':{
+			icon:'icon_module29',
+			url:'/moneyGamePacreen?barid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+		},
+		'十二生肖':{
+			icon:'icon_module30',
+			url:'/animPortpc?barid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+		},
+		'拔河游戏':{
+			icon:'icon_module31',
+			url:'/tugofwarHome?barid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+		},
+        '全民观战':{
+            icon:'icon_module32',
+            url:'/getPWPcPascreen?barid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+        },
+		'对对碰':{
+			icon:'icon_module19',
+			url:'/toOnWallPairUrl?barid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045'
+		}
+	},
+	//跑马灯
+	marqueeList:[],
+	//新的路径
+	//swfUrl:'http://wemew.oss-cn-qingdao.aliyuncs.com/videos/newds/swf/',
+	swfUrl:'http://www.wemew.cn/wemew/admin/images/swf/',
+	allImageUrl:'http://img.wemew.com/wemew/admin/images/',
+	swfCheck:'swfTest',
+	newDs:{
+		//Banana香蕉
+		12:{name:'香蕉',width:550,height:508,url:'banana',img:'ds_Gif/ds_banana.gif',msg:'好香蕉，够大、够黄、够直',iconName:'newDs_banana',time:8},
+		//Durex套套
+		13:{name:'套套',width:550,height:400,url:'durex',img:'ds_Gif/ds_durex.gif',msg:'今夜，与你一起"杜"过',iconName:'newDs_durex',time:8},
+		//pants丁字裤
+		14:{name:'丁字裤',width:550,height:813,url:'pants',img:'ds_Gif/ds_pants.gif',msg:'丝丝入扣，动人心弦',iconName:'newDs_pants',time:12},
+		//plane私人飞机
+		15:{name:'私人飞机',width:800,height:450,url:'plane',img:'ds_Gif/ds_plane.gif',msg:'跟老铁一起环游世界吧',iconName:'newDs_plane',time:16},
+		//soap去污皂
+		16:{name:'去污皂',width:1280,height:720,url:'soap',img:'ds_Gif/ds_soap.gif',msg:'为你去污，越皂越污',iconName:'newDs_soap',time:8},
+		//microphone金话筒
+		17:{name:'金话筒',width:550,height:610,url:'microphone',img:'ds_Gif/ds_microphone.gif',msg:'天籁歌喉，为你喝彩',iconName:'newDs_microphone',time:8},
+		//yacht游艇
+		18:{name:'游艇',width:800,height:450,url:'yacht',img:'ds_Gif/ds_yacht.gif',msg:'来一场碧波荡漾的海上盛宴',iconName:'newDs_yacht',time:16},
+		//rose玫瑰花海
+		19:{name:'玫瑰花海',width:800,height:480,url:'rose',img:'ds_Gif/ds_rose.gif',msg:'为你，奉献此生真爱',iconName:'newDs_rose',time:12},
+		//planeFinght战斗机
+		20:{name:'战斗机',width:550,height:330,url:'planeFinght',img:'ds_Gif/ds_planeFinght.gif',msg:'红星照你去战斗',iconName:'newDs_planeFinght',time:16},
+		//rocket火箭
+		21:{name:'火箭',width:550,height:502,url:'rocket',img:'ds_Gif/ds_rocket.gif',msg:'爱似火箭，猛烈无惧',iconName:'newDs_rocket',time:16},
+		//bosom	抖胸
+		//22:{name:'抖胸',width:800,height:450,url:'bosom',img:'ds_Gif/ds_bosom.gif',msg:'你的魅力就是"大"',iconName:'newDs_bosom',time:12},
+		//waist扭臀
+		22:{name:'扭臀',width:800,height:450,url:'waist',img:'ds_Gif/ds_waist.gif',msg:'颤抖吧，PP',iconName:'newDs_waist',time:12},
+		//perfume香水
+		23:{name:'香水',width:800,height:450,url:'perfume',img:'ds_Gif/ds_perfume.gif',msg:'送你一款有故事的香水',iconName:'newDs_perfume',time:8},
+		//car跑车
+		24:{name:'跑车',width:800,height:450,url:'car',img:'ds_Gif/ds_car.gif',msg:'跟老铁兜风去',iconName:'newDs_car',time:12},
+		//7.17新加礼物
+		//红唇
+		25:{name:'么么哒',width:1280,height:720,url:'memec',img:'ds_Gif/ds_memec.gif',msg:'',iconName:'newDs_memec',time:8},
+		//木吉他
+		26:{name:'木吉他',width:1000,height:563,url:'guitar',img:'ds_Gif/ds_guitar.gif',msg:'',iconName:'newDs_guitar',time:8},
+		//手风琴
+		27:{name:'手风琴',width:1000,height:600,url:'accordion',img:'ds_Gif/ds_accordion.gif',msg:'',iconName:'newDs_accordion',time:8},
+		//皮皮虾
+		28:{name:'皮皮虾',width:800,height:450,url:'pipi',img:'ds_Gif/ds_pipi.gif',msg:'',iconName:'newDs_pipi',time:12},
+		//炸鸡
+		29:{name:'烤鸡',width:800,height:663,url:'chiken',img:'ds_Gif/ds_chiken.gif',msg:'',iconName:'newDs_chiken',time:12},
+		//鹊桥
+		30:{name:'鹊桥',width:800,height:450,url:'bridge',img:'ds_Gif/ds_bridge.gif',msg:'',iconName:'newDs_bridge',time:16},
+		//xo
+		31:{name:'XO',width:800,height:450,url:'xo',img:'ds_Gif/ds_xo.gif',msg:'',iconName:'newDs_xo',time:16,price:69},
+		//vsop
+		32:{name:'轩尼诗VSOP',width:800,height:450,url:'vsop',img:'ds_Gif/ds_vsop.gif',msg:'',iconName:'newDs_vsop',time:12,price:29},
+		//路易十三
+		33:{name:'路易十三',width:800,height:450,url:'ly13',img:'ds_Gif/ds_ly13.gif',msg:'',iconName:'newDs_ly13',time:16,price:199},
+		34:{name:'五仁月饼',width:1920,height:1080,url:'yb',img:'ds_Gif/ds_yb.gif',msg:'',iconName:'newDs_yb',time:16,price:15},
+		35:{name:'南瓜',width:1280,height:720,url:'pumpkin',img:'ds_Gif/ds_pumpkin.gif',msg:'',iconName:'newDs_pumpkin',time:8,price:19}
+	},
+	//系统生成
+	_newDs:{"19":{"time":20,"price":39,"check":1,"nickname":"玫瑰花海","isUse":true,"name":"玫瑰花海","iconName":"newDs_rose"},"35":{"time":8,"price":19,"check":1,"nickname":"南瓜","isUse":true,"name":"南瓜","iconName":"newDs_pumpkin"},"17":{"time":20,"price":19,"check":1,"nickname":"金话筒","isUse":true,"name":"金话筒","iconName":"newDs_microphone"},"22":{"time":20,"price":39,"check":1,"nickname":"扭臀","isUse":true,"name":"扭臀","iconName":"newDs_waist"},"18":{"time":18,"price":88,"check":1,"nickname":"游艇","isUse":true,"name":"游艇","iconName":"newDs_yacht"},"23":{"time":20,"price":19,"check":1,"nickname":"香水","isUse":true,"name":"香水","iconName":"newDs_perfume"},"33":{"time":16,"price":199,"check":1,"nickname":"路易十三","isUse":true,"name":"路易十三","iconName":"newDs_ly13"},"24":{"time":20,"price":55,"check":1,"nickname":"跑车","isUse":true,"name":"跑车","iconName":"newDs_car"},"15":{"time":20,"price":88,"check":1,"nickname":"私人飞机","isUse":true,"name":"私人飞机","iconName":"newDs_plane"},"34":{"time":16,"price":15,"check":0,"nickname":"五仁月饼","isUse":false,"name":"五仁月饼","iconName":"newDs_yb"},"25":{"time":8,"price":9,"check":1,"nickname":"么么哒","isUse":true,"name":"么么哒","iconName":"newDs_memec"},"16":{"time":20,"price":9,"check":1,"nickname":"去污皂","isUse":true,"name":"去污皂","iconName":"newDs_soap"},"26":{"time":8,"price":19,"check":1,"nickname":"木吉他","isUse":true,"name":"木吉他","iconName":"newDs_guitar"},"13":{"time":20,"price":19,"check":1,"nickname":"套套","isUse":true,"name":"套套","iconName":"newDs_durex"},"27":{"time":8,"price":19,"check":1,"nickname":"手风琴","isUse":true,"name":"手风琴","iconName":"newDs_accordion"},"14":{"time":20,"price":29,"check":1,"nickname":"丁字裤","isUse":true,"name":"丁字裤","iconName":"newDs_pants"},"28":{"time":12,"price":29,"check":1,"nickname":"皮皮虾","isUse":true,"name":"皮皮虾","iconName":"newDs_pipi"},"29":{"time":12,"price":29,"check":1,"nickname":"烤鸡","isUse":true,"name":"烤鸡","iconName":"newDs_chiken"},"12":{"time":20,"price":0.01,"check":1,"nickname":"香蕉","isUse":true,"name":"香蕉","iconName":"newDs_banana"},"21":{"time":20,"price":99,"check":1,"nickname":"火箭","isUse":true,"name":"火箭","iconName":"newDs_rocket"},"20":{"time":20,"price":66,"check":1,"nickname":"战斗机","isUse":true,"name":"战斗机","iconName":"newDs_planeFinght"},"30":{"time":16,"price":17,"check":1,"nickname":"鹊桥","isUse":true,"name":"鹊桥","iconName":"newDs_bridge"},"32":{"time":12,"price":29,"check":1,"nickname":"轩尼诗","isUse":true,"name":"轩尼诗","iconName":"newDs_vsop"},"31":{"time":16,"price":69,"check":1,"nickname":"XO","isUse":true,"name":"XO","iconName":"newDs_xo"}}
+}
+
+var _href = window.location.href.replace('http://','');
+if(_href.split('/').length>0)
+	allData.swfUrl = 'http://'+_href.split('/')[0]+'/wemew/admin/images/swf/';
+	
+
+allData.bpVideoBg=['wemewDefault1.webm?r=1','wemewDefault2.webm?r=1','wemewDefault3.webm?r=1','wemewDefault4.webm?r=1','wemewDefault5.webm?r=1'];
+
+
+
+
+
+
+
+allData.dsData['cake'] = allData.dsData['-1'];
+delete allData.dsData['-1'];
+
+//更新名称
+for(var i in allData.newDs){
+	if(allData._newDs[i])
+		allData.newDs[i].name = allData._newDs[i].name;
+}
+
+var pkVideoBg = 'pkVideoBg.webm';
+
+//是否测试新打赏的酒吧
+var isTest = 'true';
+var isSelBar='false';
+//模块自动显示间隔 修改为3分钟
+// moduleControl.autoTime = 1000*60*3;
+// //红包 土豪 霸屏显示时间
+// activeControl.time = 10000;
+// //轮播图片显示间隔
+// loopImageControl.delay = 4000;
+// //表情
+// face.faceUrl = 'http://img.wemew.com/wemew/images/faces';
+
+
+
+
+</script>
+</head>
+
+<body>
+
+<script>
+
+(function(){
+	var ohref = 'http://static.yylive.com/';
+	var htmlStyle = '<style>';
+	htmlStyle += '@font-face{font-family:bpFontStyle_mo;src:url('+ohref+'6b340865fe7116631156c3ec9cd1be7e);}';
+	htmlStyle += '@font-face{font-family:bpFontStyle_sy;src:url('+ohref+'38bd65b929871191843d8c021f4da3bc);}';
+	htmlStyle += '@font-face{font-family:bpFontStyle_shaonv;src:url('+ohref+'51a5c42c215e989e7e1e5d13c20e4843);}';
+	htmlStyle += '@font-face{font-family:bpFontStyle_zy;src:url('+ohref+'ed9b6fe1a3dbb800e6b428695f4ec5b0);}';
+	htmlStyle += '</style>';
+	$(htmlStyle).appendTo($('head'));
+	var sHtml = '<div style="opacity:0; position:absolute; left:0; top:0;">';
+	sHtml += '<span style="font-family:bpFontStyle_mo">bpFontStyle_mo</span>';
+	sHtml += '<span style="font-family:bpFontStyle_sy">bpFontStyle_sy</span>';
+	sHtml += '<span style="font-family:bpFontStyle_shaonv">bpFontStyle_shaonv</span>';
+	sHtml += '<span style="font-family:bpFontStyle_zy">bpFontStyle_zy</span>';
+	sHtml += '</div>';
+	$(sHtml).appendTo($('body'));
+})();
+
+</script>
+<!--设置区域-->
+<div class="systemControl" id="systemControl">
+	<span class="systemControlSpan"><tt><i class="sj1"></i><i class="sj2"></i></tt></span>
+	<div class="systemControlCover"></div>
+	<div class="systemControlTitle"><tt class="miniWMlogo"></tt>设置</div>
+    <div class="controlMenu">
+    	<div class="oneMenu">
+        	标题
+            <div class="secondMenu">
+            	<tt class="iBorder"><i></i></tt>
+            	<p class="secondMenuTitle">设置标题 </p>
+            	<div id="setTitle"><input id="setOnWallTitle" class="controlInput" type="text" placeholder="请输入您的标题" /></div>
+            </div>
+        </div>
+    	<div class="oneMenu">
+        	显示
+            <div class="secondMenu">
+            	<tt class="iBorder"><i></i><i></i></tt>
+            	<div class="secondMenuInner">
+                    
+                    <p class="secondMenuTitle">背景效果</p>
+                    <div id="setBg"></div>       
+                    <p class="colorDark">
+                        您可以在秉烛科技后台上传图片和视频，秉烛科技已推出多种风格的酷炫视频背景，请登录后台查看
+                    </p>
+                                    
+                    <p class="secondMenuTitle margin20">屏幕亮度&nbsp;&nbsp;<tt id="setLightInfo"></tt></p>
+                    <div id="setLight"></div>
+					
+					<p class="secondMenuTitle margin20">消息背景透明度&nbsp;&nbsp;<tt id="msgLightInfo"></tt></p>
+                    <div id="msgLight"></div>
+                    
+                    <div id="forBgCanvas">
+                        <p class="secondMenuTitle margin20">点缀效果</p>
+                        <div id="setBpCanvas"></div>
+                    </div> 
+                    
+                    <p class="secondMenuTitle margin20">霸屏效果</p>
+                    <div id="setBpType"></div>
+                    
+                    <p class="secondMenuTitle margin20">霸屏字体大小</p>
+                    <div id="setBpFont"></div>   
+					
+					<p class="secondMenuTitle margin20">霸屏字体样式</p>
+                    <div id="setBpFontStyle"></div> 
+                    
+                    <p class="secondMenuTitle margin20">
+                        60秒（含）以上倒计时&nbsp;&nbsp;<!--<tt id="setBpCountInfo"></tt>-->
+                        <span id="setBpCount" class="controlSwitch"></span>
+                    </p>
+                    
+                        
+                        
+                    
+
+                    <div id="forBgVideo">
+                        <p class="secondMenuTitle margin20">视频亮度&nbsp;&nbsp;<tt id="setVideoCoverInfo"></tt></p>
+                        <div id="setVideoCover"></div>
+                    </div>
+                    
+                    <p class="secondMenuTitle margin20">
+                        轮播图&nbsp;&nbsp;<tt id="setCodeInfo"></tt>
+                        <span id="setCode" class="controlSwitch"></span>
+                    </p>
+                    <p class="colorDark">
+                        二维码可以用鼠标拖动，键盘的方向键调整轮播图的显示位置
+                    </p>
+                    <!--增加霸屏显示区域高度-->
+                    <p class="secondMenuTitle margin20">霸屏显示区域高度&nbsp;&nbsp;<tt id="setBpHeightInfo"></tt></p>
+                    <div id="setBpHeight"></div>
+                    <p class="colorDark">
+                        此设置用于大屏幕底部区域被遮挡的情况，没有特殊需要请勿修改。<br />例：设置为90%表示霸屏内容只显示在屏幕上面的90%区域
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+     	<div class="oneMenu">
+        	普通消息
+            <div class="secondMenu">
+            	<tt class="iBorder"><i></i></tt>
+                <p class="secondMenuTitle">字体大小&nbsp;&nbsp;<tt id="setFontInfo"></tt></p>
+                <div id="setFont"></div>
+           		<p class="secondMenuTitle margin20">
+                	消息滚动&nbsp;&nbsp;<tt id="setMsgInfo"></tt>
+                    <span id="setMsg" class="controlSwitch"></span>
+                </p>
+                <div class="setMsg">
+                    <p class="secondMenuTitle margin20">滚动间隔时间&nbsp;&nbsp;<tt id="setMsgDelayInfo"></tt></p>
+                    <div id="setMsgDelay"></div>
+                    <p class="secondMenuTitle margin20">最大消息数量&nbsp;&nbsp;<tt id="setMsgNumInfo"></tt></p>
+                    <div id="setMsgNum"></div>
+                </div>
+            </div>
+        </div>
+        <div class="oneMenu">
+            音效
+            <div class="secondMenu">
+            	<tt class="iBorder"><i></i></tt>
+                <p class="secondMenuTitle">
+                	霸屏打赏音效&nbsp;&nbsp;<tt id="setBpAudioInfo"></tt>
+                    <span id="setBpAudio" class="controlSwitch"></span>
+                </p>
+            </div>
+        </div>
+       	<div class="oneMenu">
+            跑马灯
+            <div class="secondMenu">
+            	<tt class="iBorder"><i></i></tt>
+                <p class="secondMenuTitle">
+                	跑马灯显示&nbsp;&nbsp;<tt id="setMqShowInfo"></tt>
+                	<span id="setMqShow" class="controlSwitch"></span>
+                </p>
+                <div class="setMq">
+                	<!--增加 跑马灯字体大小-->
+                    <p class="secondMenuTitle margin20">
+                        跑马灯字体大小&nbsp;&nbsp;<tt id="setMqSizeInfo"></tt>
+                    </p>
+                    <div id="setMqSize"></div>
+                    <p class="secondMenuTitle margin20">
+                        跑马灯移动速度&nbsp;&nbsp;<tt id="setMqSpeedInfo"></tt>
+                    </p>
+                    <div id="setMqSpeed"></div>
+                    <p class="secondMenuTitle margin20">
+                        跑马灯间隔时间&nbsp;&nbsp;<tt id="setMqDelayInfo"></tt>
+                    </p>
+                    <div id="setMqDelay"></div>
+                </div>
+                <div id="setMqDelay"></div>
+            </div>
+        </div>
+        <div class="oneMenu">
+            快捷键
+            <div class="secondMenu">
+            	<tt class="iBorder"><i></i></tt>
+                <p class="secondMenuTitle">
+                	功能入口快捷键&nbsp;&nbsp;<tt id="setEntryInfo"></tt>
+                    <span id="setEntry" class="controlSwitch"></span>
+                </p>
+                <p class="colorDark">
+                    为了防止快捷键误操作的情况，你可以关闭快捷键
+                </p>
+            </div>
+        </div>
+        <div class="oneMenu">
+        	系统设置
+            <div class="secondMenu">
+            	<tt class="iBorder"><i></i><i></i></tt>
+                
+
+
+
+
+
+                
+            	<p class="secondMenuTitle margin20">点击按钮将会还原到系统默认设置</p>
+            	<p class="secondMenuTitle margin10"><a class="controlBtn" onclick="systemControl.setDefault()">默认设置</a></p>
+            </div>
+        </div>
+        <div class="oneMenu">
+        	帮助
+            <div class="secondMenu">
+            	<tt class="iBorder"><i></i></tt>
+            	<p class="secondMenuTitle">
+                    感谢您使用秉烛科技上墙，遇到问题您可咨询客服热线<br />
+                    <b style="color:#ccc">400 088 9828</b><br /><br />
+本设置功能基于便捷使用而设立，复杂设置请登录秉烛科技后台进行设置，如管理员添加、自定义视频上传、关闭组件等
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--主题内容-->
+<div id="all">
+	<!--loading-->
+	<div id="wemewLoading">
+        <span class="tableSpan">
+            <div id="wemewLoadingAnimate">
+                <span class="wemewLoadingGif" id="wemewLoadingGif"></span>
+                <div class="wemewLoadingLineBox">
+                    <div id="wemewLoadingline1"></div>
+                    <div id="wemewLoadingline2"></div>	 
+                </div>    
+            </div>
+          <div id="wemewTeam">
+                创作团队<br />
+                <!--Yancy Chan&emsp;Ice&emsp;Cathham&emsp;visual&emsp;Xunlich&emsp;class&emsp;Ben<br />-->
+                &copy;wemew 秉烛科技    
+            </div>
+
+
+        </span>
+    </div>
+	<!--
+    <div id="allBox">
+        <span class="moduleIcon">
+        	<p class="moduleIconText">组<br />件</p>
+            <a data-module="0" class="onWallHot_icon onWallModule _onWallModule disabled" onclick="moduleControl.add(this,0)"><tt>今夜红人榜</tt></a>
+            <a data-module="1" class="onWallRich_icon onWallModule _onWallModule disabled" onclick="moduleControl.add(this,1)"><tt>互动土豪榜</tt></a>
+			<a data-module="2" class="onWallPk_icon onWallModule disabled" onclick="tpControl.showNow(this)"><tt>现场PK</tt></a>
+        </span>
+    </div>
+	-->
+	
+	<div class="switchMain">
+        <div class="switchBox">
+            <div class="oneSwitch oneSwitch1 _show">
+            	<div class="oneSwitchBox">
+                    <div id="allBox"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	<div class="lightCover"></div>
+    <!--功能入口-->
+    
+    <!--<div class="sideButton">
+
+        <a class="choujiang" href="/weionwallLottery?barid=bc2a762f-6d20-4b73-a8eb-a9a8fafc5045"><tt>抽<br />奖<br /><i class="entryNum">1</i></tt></a>
+        <span class="sideSpan">
+            <a class="sideSpanText">
+                <tt>游<br />戏<br /><i class="entryNum">2</i></tt>
+            </a>
+            <div class="allActive"></div>
+        </span>	
+	</div>-->
+</div>
+
+<script type="text/html" id="msgTpl">
+<div class="onWallMsg j_onWallMsg {{_typeCls}}" mid="{{messageId}}" index="{{_index}}">
+	<img class="userHead {{_sexCls}}" src="{{userPic}}" />
+	<!--<img class="userGrade" src="http://img.wemew.com/wemew/admin/images/level/by1.png" />
+	<span class="by_color _gradeName">白银4级</span>-->
+	{{if _typeIconCls}}
+	<span class="themeIcon_default {{_typeIconCls}}"></span>
+	{{/if}}
+	<div class="onWallMsgInfo">
+		<span class="userName">{{nickName}}</span>
+		<span class="msgTime">{{_dateStr}}</span>
+		<div class="onWallMsgMain">
+			<p class="msgText {{_highLightCls}}">{{@_extroHtml}}{{@_contentHtml}}</p>
+			{{if _forTaBp}}
+				<p class="forTaBp_line"></p>
+				<p class="forTaBp_text">
+					{{each _imgArr img}}
+						<img class="forTaBp_image" src="{{img}}" />
+					{{/each}}
+					<span>{{content}}</span>
+				</p>
+				<p class="clear"></p>
+			{{else}}
+				{{if _imgArr}}
+					{{each _imgArr img}}
+						<img class="msgImage" src="{{img}}" />
+					{{/each}}
+				{{/if}}
+			{{/if}}
+			
+		</div>
+	</div>
+</div>
+</script>
+</body>
+</html>

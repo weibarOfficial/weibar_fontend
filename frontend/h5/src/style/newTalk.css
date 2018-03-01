@@ -1,0 +1,263 @@
+@charset "utf-8";
+body{background:#fff}
+.all{width:100%; padding-bottom:75px;  padding-top:15px;}
+
+.showMsgBox{background:#f6f6f6; border-top:0; position:relative;}
+.showMsgBox.head{padding:13px 20px; background:#ff4a69; text-align:center; color:#fff; font-size:16px; margin-bottom:10px; position:fixed; left:0; top:0; z-index:19;}
+
+.row{padding:4px 10px; display:block; min-height:70px; position:relative;}
+.row.other{padding-right:70px}
+.row.other.adminer{padding-right:130px;}
+.row .face{width:40px; height:40px; border-radius:50%; position:absolute; left:10px; top:20px;}
+.row .content{display:inline-block; min-height:70px; margin-top:3px; margin-left:55px;}
+.row .content .name{font-size:12px; display:block; color:#ccc; margin-right:5px; }
+.row .content .time{color:#ccc; font-size:12px; font-style:normal}
+.row .content .txt{margin-top:5px; display:inline-block; background:#f4f4f4; padding:10px; border-radius:3px; position:relative; max-width:160px}
+.row .content .txt .imArr,
+.row .content .txt .imArrYou{display:inline-block; background:url(../images/newTalk_imArrYou.png); background-size:cover}
+.row .content .txt .imArrYou{position:absolute; left:-5px; top:16px;}
+.row .content .txt .imArr{position:absolute; left:-5px; top:16px;}
+.row .content .txt .txtSpan{font-size:14px; line-height:20px; vertical-align:middle}
+.row .content .txt .txtSpan img.bg{display:block; width:160px;}
+.row .content .txt .txtSpan img.bg.hasMargin{margin-top:5px;}
+.row .txt .action{position:absolute; top:10px; right:-45px; display:inline-block; height:20px;}
+.row.adminer .txt .action{right:-90px;}
+.row .txt .action .aDel,.row .txt .action .aBlack{background:#ccc; font-size:10px; border-radius:10px; display:inline-block; padding:1px 6px; color:#fff; float:left}
+.row .txt .action.read span:nth-child(1){color:#04be02; font-size:10px}
+
+.myTxt.row{text-align:right; padding-left:70px;}
+.myTxt.row .face{left:auto; right:10px; top:30px;}
+.myTxt.row .txt .action{position:absolute; right:auto; left:-45px; top:10px;}
+.myTxt.row.adminer .txt .action{left:-90px;}
+.myTxt .content{margin-left:auto; margin-right:55px; text-align:right}
+.myTxt.row .content .txt .imArrMe{width:5px; height:10px; display:inline-block; background:url(../images/newTalk_imArrMe.png); background-size:cover}
+.myTxt.row .content .txt .imArrMe{position:absolute; top:16px; right:-5px}
+.myTxt.row .content .txt .imArr{
+    background-image:url(../images/newTalk_imArrMe.png);
+    top:16px; right:-5px;
+    left:auto;
+}
+.myTxt.row .content .txt{background:#fff0f5; text-align:left}
+.myTxt.row .content .name{text-align:right}
+.myTxt.row .txt .action span{float:right}
+
+.systemTime{padding:15px 0; text-align:center;}
+.systemTime span{background:#ccc; font-size:12px; padding:3px 8px; border-radius:4px; color:#fff; display:inline-block;} 
+.row .txtSpan{word-break:break-all; word-wrap:break-word;word-break:keep-all;}
+
+
+.foot{position:fixed; left:0; bottom:0; width:100%; padding:10px 10px; border-top:solid 1px #ddd; box-sizing:border-box; background:#fff; z-index:20}
+.forSend{width:100%; position:relative;}
+.forSendInput{height:30px; margin-left:34px; margin-right:110px; text-align:center; position:relative;}
+.forSend a{width:60px; height:30px; line-height:31px; text-align:center; display:inline-block; font-size:14px; background:#04be02; position:absolute; right:0; top:0px; border-radius:2px; color:#fff}
+.forSendInput input{width:100%; border:0; border-bottom:solid 1px #ddd; box-sizing:border-box; padding:0 10px; height:30px; line-height:30px;}
+
+.forAction{width:100%; text-align:center; padding:20px 0 0 0;}
+.forAction.hide{display:none}
+.forAction a{display:inline-block; width:25%; float:left}
+.forAction a p{width:100%; text-align:center; padding-top:5px; font-size:11px; color:#999}
+.forAction a span{width:60px; height:60px; border:solid 1px #ddd; border-radius:4px; display:inline-block; position:relative}
+.forAction a span .loadImage{width:30px; height:30px; margin:15px auto}
+.forAction a span .img{width:60px; height:60px;}
+.file{width:100%; height:100%; position:absolute; left:0; top:0; opacity:0}
+.forAction .hasImage{display:none;}
+
+.emoji_face{width:18px; height:18px; margin:0 2px; visibility:visible; vertical-align:middle; position:relative;}
+
+.allFace{padding-top:10px;}
+.allFace div{display:flex; display:-webkit-flex;}
+.allFace div a{flex:1; -webkit-flex:1; text-align:center; margin:5px 0}
+.allFace.hide{display:none}
+.allFace img{width:25px; height:25px; display:inline-block;}
+/*
+.allFace{padding-top:10px;}
+.allFace.hide{display:none}
+.allFace img{width:24px; float:left; margin:5px 5px}
+*/
+.faceCover{width:100%; height:100%; position:fixed; left:0; top:0; display:none}
+span.textGreen{color:#04be02; font-size:12px;}
+.row .txtSpan{word-break:break-all;word-wrap:break-word;word-break:keep-all;}
+.forSend span:active{opacity:0.8}
+
+.loadMore{padding:10px 0; text-align:center; display:none; width:100%; background:#f6f6f6}
+.loadMore.animate{-webkit-animation: opacity 1.5s linear infinite;}
+@-webkit-keyframes opacity {
+  0%{opacity:1}
+  25%{opacity:0.75}
+  50%{opacity:0.5}
+  75%{opacity:0.75;}
+  100%{opacity: 1;}
+}
+.loadMore tt{color:#aaa;}
+
+.userBox{width:100%; height:100%; position:fixed; left:0; top:0; background:rgba(0,0,0,0.8); z-index:1000; display:none; overflow:hidden}
+.userBox .Phone_loading{left:50%; top:50%; margin-left:-80px; margin-top:-80px;  z-index:1;}
+.userBox .FuckYou_close{right:15px; top:15px;}
+.userBox .userBg{width:100%; visibility:hidden; position:relative; z-index:1}
+.userInfo{width:100%; padding:20px 20px; position:absolute; left:0; bottom:0; box-sizing:border-box;-webkit-box-sizing:border-box; display:none; z-index:2}
+.userInfo .p1{font-size:16px; color:#fff; line-height:20px; margin-right:120px}
+.userInfo .p1 span{margin-left:10px; font-size:13px;}
+.userInfo .p1 span.woman{color:#fd4648}
+.userInfo .p1 span.man{color:#4a78ff}
+.userInfo .p2{height:20px; line-height:20px; margin:2px 0}
+.userInfo .p2 span{color:#eee; font-size:12px; display:inline-block; float:left; height:20px; line-height:20px;}
+.userInfo .p3{color:#eee; font-size:12px;}
+.userInfo .aBox{margin-top:12px}
+.userInfo .aBox a:nth-child(1){width:47.5%; height:30px; line-height:31px; text-align:center; color:#ff4b80; border:solid 1px #ff4b80; display:inline-block; float:left; border-radius:2px}
+.userInfo .aBox a:nth-child(2){width:47.5%; height:30px; line-height:31px; text-align:center; color:#fff; background:#ff4b80; display:inline-block; float:right; border-radius:2px; border:solid 1px #ff4b80;}
+.userTip{position:absolute; right:20px; top:23px; text-align:center;}
+.userTip span{display:inline-block; color:#ccc; text-align:center; font-size:10px; border-radius:25px;}
+.userTip span tt{color:#ccc; font-size:10px;}
+.userBoxCover{position:absolute; left:0; top:0; width:100%; height:100%; z-index:2; opacity:0}
+.reflection{
+display: block;width:100%; visibility:hidden;
+-webkit-transform: scaleY(-1);-moz-transform: scaleY(-1);-ms-transform: scaleY(-1);-o-transform: scaleY(-1);transform: scaleY(-1);
+opacity:0.85; filter:alpha(opacity='85');
+}
+.reflectionBox{background:#000; visibility:hidden;}
+.overlay{
+	background-image: -moz-linear-gradient(center bottom, rgb(0,0,0) 1%, rgba(0, 0, 0, 0.5) 100%);
+	background-image: -o-linear-gradient(rgba(0,0,0,0.5) 1%, rgb(0,0,0) 30%);
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.05, rgb(0,0,0)), color-stop(1, rgba(0, 0, 0, 0.5)));
+	filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColor=0, EndColorStr=#000000);
+}
+
+.userBoxAllBg{height:100%}
+.swiper-container{height:100%; overflow:hidden;}
+.swiper-slide div.Phone_loading{z-index:1; position:absolute}
+.swiper-slide .Phone_loading .Phone_loading_box{z-index:-1}
+.swiper-pagination-bullet{width:4px; height:4px; background:#fff}
+.swiper-pagination-bullet.swiper-pagination-bullet-active{background:#4a78ff}
+#swiper-pagination1{color:#999}
+.swiper-pagination-current,.swiper-pagination-total{color:#999}
+.userInfo{display:block}
+.row .face.woman{border:solid 1px #ff4b68;}
+.row .face.man{border:solid 1px #4a78ff;}
+
+*{-webkit-tap-highlight-color:rgba(255,255,255,0);}
+.systemRow.row{padding:8px 10px 5px 10px; text-align:center; min-height:0;}
+.systemRow i{position:relative; top:2px; margin-right:3px;}
+.systemRow span{height:20px; line-height:20px; display:inline-block; padding:0px 20px; border-radius:10px; background:rgba(0,0,0,0.15); color:#fff; font-size:10px;}
+
+/*新的底部*/
+.newFoot{position:fixed; left:0; bottom:0; width:100%; z-index:32; background:#f6f6f6; padding:8px 10px; border-top:solid 1px #ddd; box-sizing:border-box;}
+.newFoot-txt{width:100%; position:relative; padding:0 72px 0 100px; box-sizing:border-box;}
+.newFoot-txt input{border-radius:20px; font-size:13px; height:34px; line-height:34px; width:100%; padding:5px 15px; box-sizing:border-box; background:#fff;}
+#submit{background:#ddd; color:#fff; height:30px; line-height:31px; width:60px; text-align:center; display:inline-block; position:absolute; right:0; top:2px; border-radius:20px; font-size:13px; background:#04be02;}
+.onWallPhoneIcon_image{width:25px;height:25px;position:absolute; left:0px; top:4px;background:url('../images/ic_pic_gray.png');background-size:cover;}
+.onWallPhoneIcon_emoji{position:absolute; left:33px; top:5px;}
+.onWallPhoneIcon_emoji{background:url(../images/onWallPhoneIcon_emoji_.png?a=2);width:25px; height:25px; background-size:cover; display:inline-block;}
+.newFoot-allActive{padding-top:12px;}
+.newFoot-txt input.hasImage{padding-left:63px}
+.newFoot-inputBox{position:relative}
+.afterUpload{display:inline-block; width:54px; height:30px; position:absolute; left:2px; top:2px; background:#ccc; border-radius:20px;}
+.afterUpload .img{width:30px; height:30px; border-radius:20px;}
+.afterUpload .slideClose{position:absolute; right:10px; top:10px;}
+.afterUpload .onloading{width:20px; height:20px; margin:5px 0 5px 8px}
+
+.newFoot-allActive{display:-webkit-box; display:-moz-box; display: box;}
+.newFoot-allActive div{-webkit-box-flex:1; -moz-box-flex:1; box-flex:1; text-align:left}
+
+.newFoot-Icon{position:absolute; right:10px; top:-155px; z-index:19}
+
+.mini.newDs_banana{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_durex{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_pants{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_plane{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_soap{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_microphone{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_yacht{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_rose{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_planeFinght{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_rocket{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_bosom{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_waist{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_perfume{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_car{width:18px; height:18px; position:relative; top:4px}
+
+.mini.newDs_memec{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_guitar{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_accordion{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_pipi{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_bridge{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_xo{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_vsop{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_ly13{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_yb{width:18px; height:18px; position:relative; top:4px}
+.mini.newDs_pumpkin{width:18px; height:18px; position:relative; top:4px}
+
+.dsLine{width:100%; height:1px; background:rgba(244,164,190,0.5); display:inline-block; margin:5px 0;}
+
+.newTalk_gift{background:url(../images/newTalk_gift.png); background-size:cover; width:25px; height:25px; display:inline-block}
+.newTalk_gift{position:absolute; left:66px; top:5px;}
+
+.dsObjMain{width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:5px}
+.dsObjBox{width:9999px}
+.oneDsObj{display:inline-block; float:left; width:70px; text-align:center; position:relative}
+.oneDsObj .icon_gift_select{display:none; position:absolute; right:12px; top:0}
+.oneDsObj .icon_gift_combo{position:absolute; right:11px; top:0}
+.oneDsObjSpan{width:46px; height:46px; border-radius:50%; display:block; border:solid 1px #eee; margin:0 auto}
+.oneDsObj img{width:46px; height:46px; margin:0; border-radius:50%;}
+.oneDsObjSpan{display:flex;display:-webkit-flex; align-items:center; justify-content: center;}
+.oneDsObj tt{font-size:12px; display:inline-block; margin-top:4px; height:20px; width:100%; line-height:20px; text-align:center;}
+.oneDsObj.sel .oneDsObjSpan{border:solid 1px #ff4b69;}
+.oneDsObj.sel .icon_gift_select{display:inline-block}
+
+.oneDsObjNum{width:14px; height:14px; background:#ff4b69; position:absolute; right:11px; top:0px; display:inline-block; border-radius:50%; font-size:10px; text-align:center; line-height:14px; color:#fff; font-style:normal; display:none}
+.oneDsObj.sel .oneDsObjNum{display:inline-block}
+
+.oneDsObj.sel .icon_gift_combo{display:none}
+.oneDsObj.sel tt{color:#ff4b69;}
+
+
+.lineDiv{text-align:right; font-size:12px; line-height:16px; height:16px; position:relative}
+.myRedBagBox{position:absolute; left:0; top:0;z-index:20;}
+.myRedBagTxt{font-size:12px; line-height:16px; height:16px; position:relative; color:#333}
+.myRedBagTxt span{
+    display:inline-block;
+    vertical-align:middle;
+}
+.myRedBagTxt .myCheckBlack{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    -webkit-border-radius:50%;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    border:1px solid #b7b7b7;
+    margin-right:5px;
+}
+.myRedBagTxt .myCheckText{color:#b5b5b5;}
+.moneyChecked .myRedBagTxt .myCheckBlack{
+    border:0 none;
+    background:url('../images/my_checked_black.png') no-repeat center center/100% 100%;
+}
+.moneyChecked .myRedBagTxt .myCheckText{color:#333;}
+#delMoney{margin-left:17px;}
+#priceBox{position:relative; margin-top:10px;}
+#priceBox.hide{display:none}
+.lineDiv.hide,.myRedBagTxt.hide{display:none}
+/* 
+.lineDiv{text-align:right; font-size:12px; line-height:16px; height:16px; position:relative}
+.myRedBagBox{position:absolute; left:0; top:0;}
+.myRedBagTxt{font-size:12px; line-height:16px; height:16px; position:relative; color:#fb941c}
+#priceBox{position:relative; margin-top:10px;}
+#priceBox.hide{display:none}
+.lineDiv.hide,.myRedBagTxt.hide{display:none}
+ */
+
+.isShowToPc{margin:10px 0 0 0; padding:5px 0 5px 20px; font-size:12px; display:inline-block; color:rgba(0,0,0,0.4); position:relative;}
+.isShowToPc.sel{color:#ff4b69;}
+.isShowToPc i.icon_gift_select{width:16px; height:16px; position:absolute; left:0; top:50%; margin-top:-8px;}
+.isShowToPc.sel i.icon_gift_select{background:url(../images/icon_gift_select_red.png); background-size:cover}
+.isShowToPc i.icon_gift_select{background:url(../images/newIc_noSel.png); background-size:cover}
+
+.followPopBox{
+    position:fixed; left:0; top:0; width:100%; height:100%;
+    background:rgba(0,0,0,0.7); display:table; 
+    text-align:center; z-index:90;
+}
+.followPopBox .popTip{color:#ff4b69; margin-bottom:10px; font-size:14px; line-height:24px;}
+.followPopBox .closeBtn{
+    color:#999; font-size:12px; border:solid 1px #999; border-radius:8px; padding:5px 25px;
+}

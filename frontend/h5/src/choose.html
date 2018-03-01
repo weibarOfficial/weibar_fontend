@@ -1,0 +1,188 @@
+
+
+
+<!DOCTYPE html />
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>请选择酒吧</title>
+<meta content="user-scalable=0,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<script type="text/javascript" src="./js/commons/touch.min.js?r=9"></script>
+
+
+<link rel="stylesheet" type="text/css" href="./style/basic.css?r=5"/>
+<link rel="stylesheet" type="text/css" href="./style/wmPhone.css?r=5"/>
+<script  type="text/javascript" src="./js/commons/jquery-1.10.2.min.js"></script>
+<script  type="text/javascript" src="./js/commons/template-web.js?r=5"></script>
+<script  type="text/javascript" src="./js/commons/wmPhone.js?r=5"></script>
+<!--百度地图--><!-- 
+<script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=3Zk1DhG0FQVceWlcfQrCtADM&v=1.0"></script> -->
+<style>
+*{font-size:12px; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);}
+a{text-decoration: none;}
+body{background:#f6f6f6; overflow-x:hidden}
+.allBar{padding:15px; box-sizing:border-box;}
+.barHead{background:#fff; width:100%; padding:0 15px; box-sizing:border-box; margin-bottom:15px; border-radius:4px;}
+.barHead a{width:50%; display:inline-block; padding:15px 0 14px 0; text-align:center; font-size:14px; font-weight:bold; letter-spacing:1px; border-bottom:solid 1px #fff}
+.barHead a.sel{border-bottom:solid 1px #666}
+.barRow{background:#fff; width:100%; height:100px; border-radius:4px; position:relative; padding:15px; box-sizing:border-box; display:block; margin-bottom:15px}
+.barRow .logo{width:56px; height:56px; border-radius:50%; position:absolute; top:22px}
+.barRow div{margin-left:74px; margin-right:30px; height:100%;}
+.barName{font-size:16px; color:#4c76ff; letter-spacing:1px; margin-top:4px;}
+.lastTime{margin:8px 0 4px 0; position:relative; padding-left:15px; color:#ccc; width:100%; height:18px; line-height:18px}
+.lastTime span{position:absolute; left:0; top:3px}
+.interact_right{position:absolute; right:15px; top:50%; margin-top:-7px;}
+.hot{color:#ccc; padding-left:15px; position:relative; height:18px; line-height:18px}
+.hot span{position:absolute; left:1.5px; margin-top:4px}
+.loadMore{margin-top:-20px; padding:10px 0 20px 0;text-align: center;}
+.noData{letter-spacing:1px; font-size:12px;}
+
+
+.activeTitle{font-size:12px; color:#6a6a6a; padding:10px 0px; letter-spacing:1px; margin-bottom:5px}
+.activeList{}
+.activeImg{width:30px; height:30px; display:inline-block; background:#999; border-radius:50%; position:absolute; left:5px; top:12px;}
+.activeImg img{width:18px; height:18px; margin:6px}
+.activeList a{height:30px; line-height:30px; display:block; padding:12px 0 12px 45px; font-size:15px; position:relative; letter-spacing:1px; color:#666; border-bottom:solid 1px #eee}
+.activeList a:first-child{border-top:solid 1px #eee}
+.activeList a .interact_right{width:6px; height:12px; margin-top:-6px;}
+.page2{display:none}
+.copy{color:#ccc; padding:20px 0 20px 0; text-align:center; visibility:hidden; font-size:10px;}
+
+.wineSend{display:inline-block; padding:10px 40px; background:#20c51e; margin-top:25px; color:#fff; border-radius:3px; font-size:12px;}
+.wineCancel{display:inline-block; margin-right:15px; font-size:12px; padding:10px 20px;}
+.oneInput{width:100%; padding:10px 18px; box-sizing:border-box; background:#fff; border-bottom:solid 1px #ddd; line-height:20px; position:relative;}
+.oneInput ._oneInput{width:100%; position:relative}
+.oneInput label{text-align:right; display:inline-block; width:50px; margin-right:0px; color:#999; line-height:20px; height:20px; position:absolute; left:0; top:0; background:; font-size:12px;}
+.oneInput .boxInput{line-height:20px; height:20px; border:0; width:100%; box-sizing:border-box; background:; font-size:12px;}
+.cy_box{
+    position: relative;
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+/*.cy_box .barRow{width: 70%;display: inline-block;}*/
+.infoBox{
+    position: absolute;
+    transition: all 0.5s;
+    width: 100%;
+}
+.delClass{
+    -webkit-transform: translateX(-70px);
+    transform: translateX(-70px);
+}
+.delImg{
+    position: absolute;
+    right: -70px;
+    top: 14px;
+    /*float: right;*/
+    display: inline-block;
+    display: none;
+    width: 60px;
+    height: 60px;
+    /*margin-top: 14px;
+    margin-right: 70px;*/
+    background-color: #00aba9;
+    background: url("http://img.wemew.com/wemew/wechat/images/ic_delete.png") no-repeat;
+    background-size: cover;
+}
+
+.interact_time{background:url(../images/interact_time.png); background-size:cover; width:10px; height:10px; display:inline-block}
+.interact_flag{background:url(../images/interact_flag.png); background-size:cover; width:7px; height:10px; display:inline-block}
+.interact_right{background:url(../images/interact_right.png); background-size:cover; width:8px; height:15px; display:inline-block}
+
+.iconPlace{background:url(../images/iconPlace.jpg); background-size:cover; width:12px; height:12px; display:inline-block}
+.iconTel{background:url(../images/iconTel.jpg); background-size:cover; width:12px; height:12px; display:inline-block}
+</style>
+</head>
+
+<body>
+<div class="allMain">
+	<div class="allBar">
+		<div class="barHead">
+	    	<a class="j_tab_item sel" >上大屏幕</a><a class="j_tab_item">历史足迹</a>	
+	    </div>
+		<div class="page1 j_tab_content">
+	    	<!--这里生成最后访问的那家酒吧-->
+	    </div>
+	    <div class="page2 j_tab_content">
+	    </div>
+	    <div class="noData f-tc f-none">没有访问记录<br/>您可以在微信公众号对话框发送酒吧名称进入互动</div>
+	</div>
+	<div class="loadMore">
+	   <span class="loadingImg"><span></span></span><tt>正在为您加载...</tt>
+	</div>
+</div>
+<p class="copy">&copy;wemew 秉烛科技<span class="copyWemewIcon"></span></p>
+<script type="text/html" id="gamesTpl">
+<div class="activeList">
+{{each data}}
+	<a href="{{$value.gameUrl}}">
+	    <tt class="activeImg">
+	        <img src="{{$value.gameImgUrl}}" />
+	    </tt>
+		{{$value.gameName}}
+	    <span class="interact_right"></span>
+	</a>	
+{{/each}}
+</div>
+</script>
+<script type="text/html" id="latestTpl">
+<a class="barRow" href="./index.html?merchantId={{merchantId}}">
+    <img class="logo" src="{{merchantUrl}}" />
+    <div>
+        <p class="barName ellipsis">{{merchantName}}</p>	
+        <p class="lastTime ellipsis">
+            <span class="interact_time"></span>
+           	 最后访问&nbsp;{{_timeStr}}
+        </p>
+        <!--<p class="hot ellipsis">
+            <span class="interact_flag"></span>
+           48小时热度 0
+        </p>-->
+    </div>
+    <span class="interact_right"></span>
+</a>
+<p class="activeTitle">{{merchantName}}&nbsp;功能列表：</p>
+</script>
+<script type="text/html" id="merchantTpl">
+{{each}}
+<a class="barRow" href="./index.html?merchantId={{$value.merchantId}}">
+    <img class="logo" src="{{$value.logoUrl}}" />
+    <div>
+        <p class="barName ellipsis">{{$value.name}}</p>	
+        <p class="lastTime ellipsis">
+            &nbsp;
+        </p>
+        <p class="hot ellipsis">
+            &nbsp;
+        </p>
+    </div>
+    <span class="interact_right"></span>
+</a>
+{{/each}}
+</script>
+<script type="text/html" id="historyTpl">
+{{each}}    
+<div class="cy_box">
+    <div class="infoBox">
+        <a class="barRow" href="./index.html?merchantId={{$value.merchantId}}">
+        <img class="logo" src="{{$value.merchantUrl}}" />
+        <div>
+            <p class="barName ellipsis">{{$value.merchantName}}</p>
+            <p class="lastTime ellipsis">
+                <span class="interact_time"></span>最后访问 {{$value._timeStr}}
+            </p>
+            <!--<p class="hot ellipsis">
+                <span class="interact_flag"></span>48小时热度 0
+            </p>-->
+        </div>
+        <span class="interact_right"></span>
+        </a>
+        <span class="delImg j_del" logId={{$value.logId}}><span>
+    </div>
+</div>    
+{{/each}}
+</script>
+</body>
+</html>
