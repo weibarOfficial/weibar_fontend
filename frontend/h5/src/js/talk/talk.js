@@ -167,7 +167,7 @@ App.MsgModule = {
         }).then(function(res){
             if(res && res.code === 0 && res.data){
                 var msg = '我已经关注了公众号，你给我发的消息微信将通知到我';
-                if (res.data.status === 2){ // 1.用户已经关注公众号;2.未关注
+                if (+res.data.status !== 1){ // 1.用户已经关注公众号;2.未关注
                     msg = '我已经取消关注了公众号，你给我发的消息微信无法通知到我';
                 }
                 document.title = res.data.nickname;
@@ -373,10 +373,13 @@ $(function () {
                 chatId: Global.chatId
             }
         });
-        if(Global.User.status === 1) {
+
+        // 未关注
+        if(Global.User.status !== 1) {
             FollowPop.show();
         }
         WebsocketModule.connect({
+            privateChat:true,
             chatId: Global.chatId,
             callback: function(json){
                 App.MsgModule.appendData(json);
